@@ -10,12 +10,12 @@ Installation
 
 Make sure `conda` and `mamba` have been installed in advanced.
 ```sh
-#If you are using old Linux system, you can try old version conda
+#if you are using old Linux system, you can try old version conda
 wget https://repo.anaconda.com/miniconda/Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
 #type 'yes' twice
 sh Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
 
-#If you are using old Linux system, you can try old version mamba
+#if you are using old Linux system, you can try old version mamba
 conda install conda-forge::mamba=1.5.6 -y
 ```
 
@@ -28,38 +28,38 @@ conda config --add channels bioconda
 conda config --add channels ursky
 conda config --set channel_priority flexible
 
-#Install trimmomatic
+#install trimmomatic
 conda create -n trimmomatic -y
 conda activate trimmomatic
 mamba install bioconda::trimmomatic=0.39 -y
 conda deactivate
 
-#Install megahit
+#install megahit
 conda create -n megahit -y
 conda activate megahit
 mamba install bioconda::megahit -y
 conda deactivate
 
-#Install seqkit
+#install seqkit
 conda create -n seqkit -y
 conda activate seqkit
 mamba install bioconda::seqkit -y
 conda deactivate
 
-#Install minibwa
+#install minibwa
 conda create -n minibwa -y
 conda activate minibwa
 mamba install minibwa -y
 conda deactivate
 
-#Install samtools
+#install samtools
 #metabat2 was also installed in this env for the command 'jgi_summarize_bam_contig_depths'
 conda create -n samtools -y
 conda activate samtools
 mamba install bioconda::metabat2 bioconda::samtools -y
 conda deactivate
 
-#Install metawrap (simplified)
+#install metawrap (simplified)
 #This metawrap env is only used for bin_refinement
 cd ~
 git clone https://github.com/bxlab/metaWRAP.git
@@ -78,31 +78,31 @@ rm *.gz
 checkm data setRoot ~/metaWRAP/MY_CHECKM_FOLDER/
 conda deactivate
 
-#Install metabat2
+#install metabat2
 conda create -n metabat2 -y
 conda activate metabat2
 mamba install bioconda::metabat2 -y
 conda deactivate
 
-#Install concoct
+#install concoct
 conda create -n concoct -y
 conda activate concoct
 mamba install bioconda::concoct -y
 conda deactivate
 
-#Install SemiBin2
+#install SemiBin2
 conda create -n SemiBin -y
 conda activate SemiBin
 mamba install -c conda-forge -c bioconda semibin -y
 conda deactivate
 
-#Install MetaBinner
+#install MetaBinner
 cd ~
 git clone https://github.com/ziyewang/MetaBinner.git
 cd MetaBinner
 mamba env create -f metabinner_env.yaml -y
 
-#Install COMEBin (cpu version)
+#install COMEBin (cpu version)
 conda create -n comebin -y
 conda activate comebin
 mamba install -c conda-forge -c bioconda comebin -y
@@ -118,35 +118,23 @@ git clone https://github.com/jchenek/MGBK.git
 
 Users' Guide
 ---------------
-### Download and prepare example raw fq data
+Download example NGS data from DOI: [https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945](https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945).
+Upload the downloaded file '33101945.zip' to the dir ~/MGBK_example.
 ```sh
 cd ~
 mkdir MGBK_example
 cd MGBK_example
-#download data from: https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945
 #upload the the file '33101945.zip' to ~/MGBK_example
-#you will see dir 'example_NGS_metaG_fq_from_cold_seep' after unzip
-unzip 33101945.zip
+unzip 33101945.zip #you will see dir 'example_NGS_metaG_fq_from_cold_seep' after unzip
 cd example_NGS_metaG_fq_from_cold_seep/
 #prepare a fq_list file for further analysis
 perl ~/MGBK/scripts/get_fq_list_from_gz.pl
 ```
+Tips:
+- `fq_list`: This is a tsv file that looks like this: "A_id\tA_PATH_1.fq\tA_PATH_2.fq\nB_id\tB_PATH_1.fq\tB_PATH_2.fq\nC_id\tC_PATH_1.fq\tC_PATH_2.fq\n". You can get this file by ~/MGBK/scripts/get_fq_list_from_gz.pl or make one useing any text editor you like.
+- `~/MGBK/scripts/get_fq_list_from_gz.pl`: This perl scripts will detect all files under current path, extract those ended with "gz", and create a fq_list.
 
-Tutorial with example data
-- `$cpu`: 
-- `$fq_list`: 
-- `$assembly`: 
-- `$min_length`: 
-- `$fq_list_trim`: 
-- `$cpu`: 
-- `$cpu`: 
-- `$cpu`: 
-- `$cpu`: 
-
-
-Users' Guide
------
-### Step 1. trim and assembly
+Step 1. trim and assembly
 For NGS mstaG fq, we use trimmomatic for trimming and megahit for assembly.
 
 
