@@ -1,7 +1,7 @@
 MGBK (MetaGenomic Binning Kit)
 =======
 
-MGBK is a pipeline for metagenomic binning. We will start from metaG raw fastq data to refined metagenome-assembled genomes (MAGs). This pipeline is designed based on two NC papers:
+MGBK is a pipeline for metagenomic binning. We will start with the metaG raw fastq data and proceed to refined metagenome-assembled genomes (MAGs). This pipeline is designed based on two NC papers:
 - `Kim et at., 2026`: Comprehensive benchmarking of metagenomic binning tools reveals key factors for improved genome recovery
 - `Han et at., 2025`: Benchmarking metagenomic binning tools on real datasets across sequencing platforms and binning modes
 
@@ -22,12 +22,12 @@ conda install conda-forge::mamba -y
 
 ### Download or clone the Diaiden repository
 ```sh
-git clone https://github.com/jchenek/Diaiden.git
+git clone https://github.com/jchenek/MGBK.git
 ```
 
 ### Download example raw fq data
 ```sh
-git clone https://github.com/jchenek/Diaiden.git
+wget https://figshare.com/ndownloader/articles/33101945/versions/1
 ```
 
 Usage
