@@ -2,8 +2,8 @@ MGBK (MetaGenomic Binning Kit)
 =======
 
 MGBK is a pipeline for metagenomic binning. We can start with the metaG raw fastq data and proceed to refined bins or metagenome-assembled genomes (MAGs). This pipeline is designed based on two papers published on Nature Communications:
-- `Kim et at., 2026`: Comprehensive benchmarking of metagenomic binning tools reveals key factors for improved genome recovery
-- `Han et at., 2025`: Benchmarking metagenomic binning tools on real datasets across sequencing platforms and binning modes
+- `Kim et al., 2026`: Comprehensive benchmarking of metagenomic binning tools reveals key factors for improved genome recovery
+- `Han et al., 2025`: Benchmarking metagenomic binning tools on real datasets across sequencing platforms and binning modes
 
 Installation
 ---------------
@@ -119,6 +119,7 @@ git clone https://github.com/jchenek/MGBK.git
 Users' Guide
 ---------------
 Download example NGS data from DOI: [https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945](https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945).
+
 Upload the downloaded file '33101945.zip' to the dir ~/MGBK_example.
 ```sh
 cd ~
@@ -130,11 +131,11 @@ cd example_NGS_metaG_fq_from_cold_seep/
 #prepare a fq_list file for further analysis
 perl ~/MGBK/scripts/get_fq_list_from_gz.pl
 ```
-Tips:
 - `fq_list`: This is a tsv file that looks like this: "A_id\tA_PATH_1.fq\tA_PATH_2.fq\nB_id\tB_PATH_1.fq\tB_PATH_2.fq\nC_id\tC_PATH_1.fq\tC_PATH_2.fq\n". You can get this file by ~/MGBK/scripts/get_fq_list_from_gz.pl or make one useing any text editor you like.
 - `~/MGBK/scripts/get_fq_list_from_gz.pl`: This perl scripts will detect all files under current path, extract those ended with "gz", and create a fq_list.
 
 Step 1. trim and assembly
+---------------
 For NGS mstaG fq, we use trimmomatic for trimming and megahit for assembly.
 
 
