@@ -10,24 +10,39 @@ Installation
 
 ### Create conda environments
 ```sh
+#If you are using old Linux system, you can use old version conda
+#wget https://repo.anaconda.com/miniconda/Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
+#type 'yes' twice
+#sh Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
+conda update conda -y
+
 conda config --add channels defaults
 conda config --add channels conda-forge
 conda config --add channels bioconda
 conda config --add channels ursky
 conda config --set channel_priority flexible
-conda install conda-forge::mamba -y
 
+#If you are using old Linux system, you can use old version mamba
+#conda install conda-forge::mamba=1.5.6 -y
+conda install conda-forge::mamba -y
 
 ```
 
 ### Download or clone the Diaiden repository
 ```sh
+cd ~
 git clone https://github.com/jchenek/MGBK.git
 ```
 
 ### Download example raw fq data
 ```sh
-wget https://figshare.com/ndownloader/articles/33101945/versions/1
+cd ~
+mkdir MGBK_example
+cd MGBK_example
+#download data from: https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945
+#upload the the file '33101945.zip' to MGBK_example
+#you will see dir 'example_NGS_metaG_fq_from_cold_seep' after unzip
+unzip 33101945.zip
 ```
 
 Usage
