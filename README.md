@@ -34,7 +34,7 @@ cd ~
 git clone https://github.com/jchenek/MGBK.git
 ```
 
-### Download example raw fq data
+### Download and prepare example raw fq data
 ```sh
 cd ~
 mkdir MGBK_example
@@ -43,17 +43,26 @@ cd MGBK_example
 #upload the the file '33101945.zip' to MGBK_example
 #you will see dir 'example_NGS_metaG_fq_from_cold_seep' after unzip
 unzip 33101945.zip
+cd example_NGS_metaG_fq_from_cold_seep/
+#prepare a fq_list file for further analysis
+perl ~/MGBK/scripts/get_fq_list_from_gz.pl
 ```
 
 Usage
 -----
 ### Step 1. assembly
-For NGS results, use megahit.
-For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
-If directly performing co-assembly binning, just run s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl to trim and assemble.If performing multiple binning, first run s1_multisample_binning_1_trim_PE_trimmomatic_NGS.pl for all data, then edit assembly_design to run s1_multisample_binning_2_assembly_PE_megahit.pl.
+For NGS mstaG fq, we use trimmomatic for trimming and megahit for assembly.
+
+
+If directly performing co-assembly binning, just run s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl to trim and assemble.
 ```sh
 perl /PATH/TO/Diaiden.pl -i /PATH/TO/YOUR/genomes_dir -p /PATH/TO/Diaiden_dir -c 2 -b 2
 ```
+
+
+If performing multiple binning, first run s1_multisample_binning_1_trim_PE_trimmomatic_NGS.pl for all data, then edit assembly_design to run s1_multisample_binning_2_assembly_PE_megahit.pl.
+
+For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
 
 Make sure Perl is available in your system.
 - `-i`: the path to your directory where genomes or MAGs were stored
