@@ -1,65 +1,66 @@
 MGBK (MetaGenomic Binning Kit)
 =======
 
-MGBK is a pipeline for metagenomic binning. We will start with the metaG raw fastq data and proceed to refined metagenome-assembled genomes (MAGs). This pipeline is designed based on two NC papers:
+MGBK is a pipeline for metagenomic binning. We can start with the metaG raw fastq data and proceed to refined bins or metagenome-assembled genomes (MAGs). This pipeline is designed based on two papers published on Nature Communications:
 - `Kim et at., 2026`: Comprehensive benchmarking of metagenomic binning tools reveals key factors for improved genome recovery
 - `Han et at., 2025`: Benchmarking metagenomic binning tools on real datasets across sequencing platforms and binning modes
 
 Installation
 ---------------
 
-### Create conda environments
+### Make sure `conda` and `mamba` have been installed in advanced.
 ```sh
-#If you are using old Linux system, you can use old version conda
-#wget https://repo.anaconda.com/miniconda/Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
+#If you are using old Linux system, you can try old version conda
+wget https://repo.anaconda.com/miniconda/Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
 #type 'yes' twice
-#sh Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
-conda update conda -y
+sh Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
 
+#If you are using old Linux system, you can try old version mamba
+conda install conda-forge::mamba=1.5.6 -y
+```
+
+### Create conda environments for MGBK.
+```sh
+conda update conda -y
 conda config --add channels defaults
 conda config --add channels conda-forge
 conda config --add channels bioconda
 conda config --add channels ursky
 conda config --set channel_priority flexible
 
-#We need mamba to accelerate environment configuration
-#If you are using old Linux system, you can use old version mamba
-#conda install conda-forge::mamba=1.5.6 -y
-#conda install conda-forge::mamba -y
-
-#install trimmomatic
+#Install trimmomatic
 conda create -n trimmomatic -y
 conda activate trimmomatic
 mamba install bioconda::trimmomatic=0.39 -y
 conda deactivate
 
-#install megahit
+#Install megahit
 conda create -n megahit -y
 conda activate megahit
 mamba install bioconda::megahit -y
 conda deactivate
 
-#install seqkit
+#Install seqkit
 conda create -n seqkit -y
 conda activate seqkit
 mamba install bioconda::seqkit -y
 conda deactivate
 
-#install minibwa
+#Install minibwa
 conda create -n minibwa -y
 conda activate minibwa
 mamba install minibwa -y
 conda deactivate
 
-#install samtools
-#metabat2 was also installed in this env for the scripts 'jgi_summarize_bam_contig_depths'
+#Install samtools
+#metabat2 was also installed in this env for the command 'jgi_summarize_bam_contig_depths'
 conda create -n samtools -y
 conda activate samtools
 mamba install bioconda::metabat2 bioconda::samtools -y
 conda deactivate
 
-#install metawrap (simplified)
-#The metawrap installed here is simplified and only used for bin_refinement
+#Install metawrap (simplified)
+#This metawrap env is only used for bin_refinement
 cd ~
 git clone https://github.com/bxlab/metaWRAP.git
 export PATH=~/metaWRAP/bin/:$PATH
@@ -77,31 +78,31 @@ rm *.gz
 checkm data setRoot ~/metaWRAP/MY_CHECKM_FOLDER/
 conda deactivate
 
-#install metabat2
+#Install metabat2
 conda create -n metabat2 -y
 conda activate metabat2
 mamba install bioconda::metabat2 -y
 conda deactivate
 
-#install concoct
+#Install concoct
 conda create -n concoct -y
 conda activate concoct
 mamba install bioconda::concoct -y
 conda deactivate
 
-#install SemiBin2
+#Install SemiBin2
 conda create -n SemiBin -y
 conda activate SemiBin
 mamba install -c conda-forge -c bioconda semibin -y
 conda deactivate
 
-#install MetaBinner
+#Install MetaBinner
 cd ~
 git clone https://github.com/ziyewang/MetaBinner.git
 cd MetaBinner
 mamba env create -f metabinner_env.yaml -y
 
-#install COMEBin (cpu version)
+#Install COMEBin (cpu version)
 conda create -n comebin -y
 conda activate comebin
 mamba install -c conda-forge -c bioconda comebin -y
@@ -114,6 +115,9 @@ cd ~
 git clone https://github.com/jchenek/MGBK.git
 ```
 
+
+Users' Guide
+---------------
 ### Download and prepare example raw fq data
 ```sh
 cd ~
@@ -139,6 +143,8 @@ Tutorial with example data
 - `$cpu`: 
 - `$cpu`: 
 
+
+Users' Guide
 -----
 ### Step 1. trim and assembly
 For NGS mstaG fq, we use trimmomatic for trimming and megahit for assembly.
