@@ -39,6 +39,32 @@ conda activate megahit
 mamba install bioconda::megahit -y
 conda deactivate
 
+#install seqkit
+conda create -n seqkit -y
+conda activate seqkit
+mamba install bioconda::seqkit -y
+conda deactivate
+
+#install minibwa
+conda create -n minibwa -y
+conda activate minibwa
+mamba install minibwa -y
+conda deactivate
+
+#install metawrap (simplified)
+#The metawrap installed here is simplified and only used for metabat2, concoct, samtools, and bin_refinement
+cd ~
+git clone https://github.com/bxlab/metaWRAP.git
+export PATH=~/metaWRAP/bin/:$PATH
+source ~/.bashrc
+mamba create -y -n metawrap python=2.7
+conda activate metawrap
+mamba install -c bioconda metabat2 concoct samtools -y
+mamba install bioconda::checkm-genome -y
+conda deactivate
+
+
+
 ```
 
 ### Download or clone the MGBK repository
@@ -53,7 +79,7 @@ cd ~
 mkdir MGBK_example
 cd MGBK_example
 #download data from: https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945
-#upload the the file '33101945.zip' to MGBK_example
+#upload the the file '33101945.zip' to ~/MGBK_example
 #you will see dir 'example_NGS_metaG_fq_from_cold_seep' after unzip
 unzip 33101945.zip
 cd example_NGS_metaG_fq_from_cold_seep/
@@ -66,7 +92,7 @@ Tutorial with example data
 - `$fq_list`: 
 
 -----
-### Step 1. assembly
+### Step 1. trim and assembly
 For NGS mstaG fq, we use trimmomatic for trimming and megahit for assembly.
 
 
@@ -85,7 +111,9 @@ If performing multiple binning, first run s1_multisample_binning_1_trim_PE_trimm
 cd ~/MGBK_example
 mkdir multisample_binning
 cd multisample_binning
+#perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl $cpu ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
 perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+#perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl $cpu multisample_binning_assembly_design
 cp ~/MGBK/multisample_binning_assembly_design ./
 perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl 80 multisample_binning_assembly_design
 ```
@@ -93,7 +121,42 @@ perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl 80 multisample_binning_asse
 For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
 
 Make sure Perl is available in your system.
-- `-i`: the path to your directory where genomes or MAGs were stored
-- `-p`: the ABSOLUTE path to Diaiden repository
-- `-c`: potential diazotroph must carry genes that encode at least `-c number` of the three catalytic genes (nifH, nifD, nifK)
-- `-b`: potential diazotroph must carry genes that encode at least `-b number` of the three biosynthetic genes (nifE, nifN, nifB)
+- `1`: tbw
+- `2`: tbw
+- `3`: tbw
+- `4`: tbw
+
+-----
+### Step 2. alignment
+We use minibwa to align short reads against reference genomes.
+
+
+If performing coassembly binning, run s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl to trim and assemble.
+```sh
+cd ~/MGBK_example
+mkdir coassembly_binning
+cd coassembly_binning
+#perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl $cpu $fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+```
+
+
+If performing multiple binning, first run s1_multisample_binning_1_trim_PE_trimmomatic_NGS.pl for all data, then edit a assembly_design tsv to run s1_multisample_binning_2_assembly_PE_megahit.pl
+```sh
+cd ~/MGBK_example
+mkdir multisample_binning
+cd multisample_binning
+#perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl $cpu ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+#perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl $cpu multisample_binning_assembly_design
+cp ~/MGBK/multisample_binning_assembly_design ./
+perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl 80 multisample_binning_assembly_design
+```
+
+For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
+
+Make sure Perl is available in your system.
+- `1`: tbw
+- `2`: tbw
+- `3`: tbw
+- `4`: tbw
