@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use warnings;
 #Usage: 
-#perl .pl <IN number_of_threads> <IN a_txt_containning_path_of_PE_fq> <IN ~/scripts/script_packages/devDependencies_DO_NOT_REMOVE/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa>
+#perl .pl <IN number_of_threads> <IN a_txt_containning_path_of_PE_fq> <IN ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa>
 #README:
 #the list of path looks like this (default three fq input):
 #"A_id\tA_PATH_1.fq\tA_PATH_2.fq\nB_id\tB_PATH_1.fq\tB_PATH_2.fq\nC_id\tC_PATH_1.fq\tC_PATH_2.fq\n"
