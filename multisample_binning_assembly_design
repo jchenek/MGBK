@@ -1,0 +1,3 @@
+PC0_1.fastq.gz	~/MGBK_example/multisample_binning/s1_trim_fq/PC_0cm_1.fastq.gz	PC0_2.fastq.gz	~/MGBK_example/multisample_binning/s1_trim_fq/PC_0cm_2.fastq.gz
+PC15_1.fastq.gz	~/MGBK_example/multisample_binning/s1_trim_fq/PC_15cm_1.fastq.gz	PC15_2.fastq.gz	~/MGBK_example/multisample_binning/s1_trim_fq/PC_15cm_2.fastq.gz
+PCboth_1.fastq.gz	~/MGBK_example/multisample_binning/s1_trim_fq/PC_0cm_1.fastq.gz ~/MGBK_example/multisample_binning/s1_trim_fq/PC_15cm_1.fastq.gz	PCboth_2.fastq.gz	~/MGBK_example/multisample_binning/s1_trim_fq/PC_0cm_2.fastq.gz ~/MGBK_example/multisample_binning/s1_trim_fq/PC_15cm_2.fastq.gz
