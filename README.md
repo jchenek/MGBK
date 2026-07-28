@@ -131,15 +131,15 @@ cd example_NGS_metaG_fq_from_cold_seep/
 #prepare a fq_list file for further analysis
 perl ~/MGBK/scripts/get_fq_list_from_gz.pl
 ```
-- `fq_list`: This is a tsv file that looks like this: "A_id\tA_PATH_1.fq\tA_PATH_2.fq\nB_id\tB_PATH_1.fq\tB_PATH_2.fq\nC_id\tC_PATH_1.fq\tC_PATH_2.fq\n". You can get this file by ~/MGBK/scripts/get_fq_list_from_gz.pl or make one useing any text editor you like.
+- `fq_list`: This is a tsv file that looks like this: "A_id\tA_PATH_1.fq\tA_PATH_2.fq\nB_id\tB_PATH_1.fq\tB_PATH_2.fq\nC_id\tC_PATH_1.fq\tC_PATH_2.fq\n". You can get this file by ~/MGBK/scripts/get_fq_list_from_gz.pl or make one using any text editor you like.
 - `~/MGBK/scripts/get_fq_list_from_gz.pl`: This perl scripts will detect all files under current path, extract those ended with "gz", and create a fq_list.
 
 Step 1. trim and assembly
 ---------------
-For NGS mstaG fq, we use trimmomatic for trimming and megahit for assembly.
+For NGS metaG data, we use trimmomatic for trimming and megahit for assembly.
 
 
-If performing coassembly binning, run s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl to trim and assemble.
+For `coassembly binning`, run 's1_coassembly_binning_trim_and_coassembly_PE_megahit.pl' to trim and assemble.
 ```sh
 cd ~/MGBK_example
 mkdir coassembly_binning
@@ -149,7 +149,25 @@ perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl 80 ~/MGBK_ex
 ```
 
 
-If performing multiple binning, first run s1_multisample_binning_1_trim_PE_trimmomatic_NGS.pl for all data, then edit a assembly_design tsv to run s1_multisample_binning_2_assembly_PE_megahit.pl
+For `multiple binning`, first run 's1_multisample_binning_1_NGS_trim.pl' to trim all fastq; then edit a tsv file `assembly_design` and run 's1_multisample_binning_2_NGS_assembly.pl'.
+
+
+`assembly_design` tells the scripts how many assemblies to be generated using which fastq file(s). For each assembly, it can be assembled from one sample or many samples (concatenated). This tsv file looks like this:
+
+
+"Name_of_single_assembly_1.fastq.gz\tpath_to_raw_1.fastq.gz\tName_of_single_assembly_2.fastq.gz\tpath_to_raw_2.fastq.gz\n"
+
+
+Here one `assembly` called 'Name_of_single_assembly' will be generated using the PE reads 'path_to_raw_1.fastq.gz' and 'path_to_raw_2.fastq.gz'
+
+
+"Name_of_multiple_assembly_1.fastq.gz\tpath_to_raw1_1.fastq.gz path_to_raw2_1.fastq.gz path_to_raw3_1.fastq.gz\Name_of_multiple_assembly_2.fastq.gz\tpath_to_raw1_2.fastq.gz path_to_raw2_2.fastq.gz path_to_raw3_2.fastq.gz\n"
+
+
+Here one `co-assembly` called 'Name_of_single_assembly' will be generated using the concatenated PE reads 'path_to_raw_1.fastq.gz & path_to_raw2_1.fastq.gz & path_to_raw3_1.fastq.gz' and 'path_to_raw1_2.fastq.gz & path_to_raw2_2.fastq.gz & path_to_raw3_2.fastq.gz'.
+
+
+
 ```sh
 cd ~/MGBK_example
 mkdir multisample_binning
@@ -169,8 +187,9 @@ Make sure Perl is available in your system.
 - `3`: tbw
 - `4`: tbw
 
------
-### Step 2. alignment
+
+Step 2. alignment
+---------------
 We use minibwa to align short reads against reference genomes.
 
 
