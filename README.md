@@ -63,7 +63,7 @@ conda deactivate
 #This metawrap env is only used for bin_refinement
 cd ~
 git clone https://github.com/bxlab/metaWRAP.git
-export PATH=~/metaWRAP/bin/:$PATH
+echo 'export PATH=~/metaWRAP/bin/:$PATH' >> ~/.bashrc
 source ~/.bashrc
 mamba create -y -n metawrap python=2.7
 conda activate metawrap
