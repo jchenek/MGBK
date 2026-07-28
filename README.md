@@ -162,7 +162,7 @@ For `multiple binning`, first run 's1_multisample_binning_1_NGS_trim.pl' to trim
 Here one `assembly` called 'Name_of_single_assembly' will be generated using the PE reads 'path_to_raw_1.fastq.gz' and 'path_to_raw_2.fastq.gz'
 
 
-"Name_of_multiple_assembly_1.fastq.gz`\t`path_to_raw1_1.fastq.gz path_to_raw2_1.fastq.gz path_to_raw3_1.fastq.gz`\t`Name_of_multiple_assembly_2.fastq.gz`\t`path_to_raw1_2.fastq.gz path_to_raw2_2.fastq.gz path_to_raw3_2.fastq.gz`\n`"
+"Name_of_multiple_assembly_1.fastq.gz`\t`path_to_raw1_1.fastq.gz` `path_to_raw2_1.fastq.gz` `path_to_raw3_1.fastq.gz`\t`Name_of_multiple_assembly_2.fastq.gz`\t`path_to_raw1_2.fastq.gz` `path_to_raw2_2.fastq.gz` `path_to_raw3_2.fastq.gz`\n`"
 
 
 Here one `co-assembly` called 'Name_of_single_assembly' will be generated using the concatenated PE reads 'path_to_raw_1.fastq.gz & path_to_raw2_1.fastq.gz & path_to_raw3_1.fastq.gz' and 'path_to_raw1_2.fastq.gz & path_to_raw2_2.fastq.gz & path_to_raw3_2.fastq.gz'.
