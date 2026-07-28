@@ -8,7 +8,7 @@ MGBK is a pipeline for metagenomic binning. We can start with the metaG raw fast
 Installation
 ---------------
 
-### Make sure `conda` and `mamba` have been installed in advanced.
+Make sure `conda` and `mamba` have been installed in advanced.
 ```sh
 #If you are using old Linux system, you can try old version conda
 wget https://repo.anaconda.com/miniconda/Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
@@ -19,7 +19,7 @@ sh Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
 conda install conda-forge::mamba=1.5.6 -y
 ```
 
-### Create conda environments for MGBK.
+Create conda environments for MGBK.
 ```sh
 conda update conda -y
 conda config --add channels defaults
@@ -109,7 +109,7 @@ mamba install -c conda-forge -c bioconda comebin -y
 conda deactivate
 ```
 
-### Download or clone the MGBK repository
+Download or clone the MGBK repository
 ```sh
 cd ~
 git clone https://github.com/jchenek/MGBK.git
