@@ -2,7 +2,7 @@
 use warnings;
 #Usage: 
 #perl .pl <IN contig.fa> <IN min_length_of_contig> <IN number_of_threads> <IN path_to_bam_dir>
-#this script needs metawrap env (conda cerate -n metawrap), SemiBin env (conda cerate -n SemiBin), metabinner_env env (conda cerate -n metabinner_env), and comebin env (conda cerate -n comebin)
+#this script needs metawrap env (conda cerate -n metawrap), metabat2 env (conda cerate -n metabat2), concoct env (conda cerate -n concoct), SemiBin env (conda cerate -n SemiBin), metabinner_env env (conda cerate -n metabinner_env)
 #make sure ~/MetaBinner is available
 
 ($assembly, $min_length, $cpu, $bam_dir) = @ARGV;
@@ -11,7 +11,7 @@ print OU2 "#!/bin/bash\n";
 print OU2 "source ~/miniconda3/etc/profile.d/conda.sh\n";
 
 #metabat2
-print OU2 "conda activate metawrap\n";
+print OU2 "conda activate metabat2\n";
 print OU2 "echo \"########running metabat2########\"\n";
 print OU2 "mkdir metabat2_1500\n";
 print OU2 "jgi_summarize_bam_contig_depths --outputDepth metabat2_1500/depth.txt $bam_dir/\*sorted.bam \n";
@@ -20,6 +20,7 @@ print OU2 "echo \$(date) > ./metabat2_1500/done\n";
 print OU2 "echo \"########metabat2 finished########\"\n";
 
 #concoct
+print OU2 "conda activate concoct\n";
 print OU2 "echo \"########running concoct########\"\n";
 print OU2 "mkdir concoct_$min_length\n";
 print OU2 "cut_up_fasta.py $assembly -c 10000 -o 0 --merge_last -b concoct_$min_length/contigs_10k.bed > concoct_$min_length/contigs_10k.fa\n";
