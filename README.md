@@ -51,16 +51,23 @@ conda activate minibwa
 mamba install minibwa -y
 conda deactivate
 
+#install samtools
+#metabat2 was also installed in this env for the scripts 'jgi_summarize_bam_contig_depths'
+conda create -n samtools -y
+conda activate samtools
+mamba install bioconda::metabat2 bioconda::samtools -y
+conda deactivate
+
+
 #install metawrap (simplified)
-#The metawrap installed here is simplified and only used for metabat2, concoct, samtools, and bin_refinement
+#The metawrap installed here is simplified and only used for bin_refinement
 cd ~
 git clone https://github.com/bxlab/metaWRAP.git
 export PATH=~/metaWRAP/bin/:$PATH
 source ~/.bashrc
 mamba create -y -n metawrap python=2.7
 conda activate metawrap
-mamba install -c bioconda metabat2 concoct samtools -y
-mamba install bioconda::checkm-genome -y
+mamba install bioconda::checkm-genome=1.0.12 -y
 conda deactivate
 
 
@@ -90,6 +97,13 @@ perl ~/MGBK/scripts/get_fq_list_from_gz.pl
 Tutorial with example data
 - `$cpu`: 
 - `$fq_list`: 
+- `$assembly`: 
+- `$min_length`: 
+- `$fq_list_trim`: 
+- `$cpu`: 
+- `$cpu`: 
+- `$cpu`: 
+- `$cpu`: 
 
 -----
 ### Step 1. trim and assembly
@@ -131,26 +145,24 @@ Make sure Perl is available in your system.
 We use minibwa to align short reads against reference genomes.
 
 
-If performing coassembly binning, run s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl to trim and assemble.
+If performing coassembly binning, run s2_coassembly_binning_align_fq_for_bam_and_depth.pl to align trimmed fq against the co-assembled genome.
 ```sh
-cd ~/MGBK_example
-mkdir coassembly_binning
-cd coassembly_binning
-#perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl $cpu $fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
-perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+cd ~/MGBK_example/coassembly_binning
+mkdir s2_alignment
+cd s2_alignment
+#perl ~/MGBK/s2_coassembly_binning_align_fq_for_bam_and_depth.pl $assembly $min_length $cpu $fq_list_trim
+perl ~/MGBK/s2_coassembly_binning_align_fq_for_bam_and_depth.pl ~/MGBK_example/coassembly_binning/s1_coassembly/final.contigs.fa 1500 80 ~/MGBK_example/coassembly_binning/fq_list_trim
 ```
 
 
 If performing multiple binning, first run s1_multisample_binning_1_trim_PE_trimmomatic_NGS.pl for all data, then edit a assembly_design tsv to run s1_multisample_binning_2_assembly_PE_megahit.pl
 ```sh
-cd ~/MGBK_example
-mkdir multisample_binning
-cd multisample_binning
-#perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl $cpu ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
-perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
-#perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl $cpu multisample_binning_assembly_design
-cp ~/MGBK/multisample_binning_assembly_design ./
-perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl 80 multisample_binning_assembly_design
+#must run this scripts in the same path with s1_multisample_binning_2_assembly_PE_megahit.pl
+cd ~/MGBK_example/multisample_binning
+#perl ~/MGBK/s2_multisample_binning_align_fq_for_bam_and_depth.pl multisample_binning_assembly_design $min_length $cpu $fq_list_trim
+#this scripts will detect s1_assemblies_res dir and mapping read for each assemblies
+#assembly_design used here is the same with s1_multisample_binning_2_assembly_PE_megahit.pl
+perl ~/MGBK/s2_multisample_binning_align_fq_for_bam_and_depth.pl multisample_binning_assembly_design 1500 80 fq_list_trim
 ```
 
 For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
