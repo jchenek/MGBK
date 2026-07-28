@@ -22,17 +22,18 @@ conda config --add channels bioconda
 conda config --add channels ursky
 conda config --set channel_priority flexible
 
+#We need mamba to accelerate environment configuration
 #If you are using old Linux system, you can use old version mamba
 #conda install conda-forge::mamba=1.5.6 -y
-conda install conda-forge::mamba -y
+#conda install conda-forge::mamba -y
 
-#trimmomatic
+#install trimmomatic
 conda create -n trimmomatic -y
 conda activate trimmomatic
-mamba install bioconda::trimmomatic -y
+mamba install bioconda::trimmomatic=0.39 -y
 conda deactivate
 
-#megahit
+#install megahit
 conda create -n megahit -y
 conda activate megahit
 mamba install bioconda::megahit -y
@@ -40,7 +41,7 @@ conda deactivate
 
 ```
 
-### Download or clone the Diaiden repository
+### Download or clone the MGBK repository
 ```sh
 cd ~
 git clone https://github.com/jchenek/MGBK.git
@@ -75,11 +76,19 @@ cd ~/MGBK_example
 mkdir coassembly_binning
 cd coassembly_binning
 #perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl $cpu $fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
 ```
 
 
-
-If performing multiple binning, first run s1_multisample_binning_1_trim_PE_trimmomatic_NGS.pl for all data, then edit assembly_design to run s1_multisample_binning_2_assembly_PE_megahit.pl.
+If performing multiple binning, first run s1_multisample_binning_1_trim_PE_trimmomatic_NGS.pl for all data, then edit a assembly_design tsv to run s1_multisample_binning_2_assembly_PE_megahit.pl
+```sh
+cd ~/MGBK_example
+mkdir multisample_binning
+cd multisample_binning
+perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+cp ~/MGBK/multisample_binning_assembly_design ./
+perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl 80 multisample_binning_assembly_design
+```
 
 For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
 
