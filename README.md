@@ -26,6 +26,18 @@ conda config --set channel_priority flexible
 #conda install conda-forge::mamba=1.5.6 -y
 conda install conda-forge::mamba -y
 
+#trimmomatic
+conda create -n trimmomatic -y
+conda activate trimmomatic
+mamba install bioconda::trimmomatic -y
+conda deactivate
+
+#megahit
+conda create -n megahit -y
+conda activate megahit
+mamba install bioconda::megahit -y
+conda deactivate
+
 ```
 
 ### Download or clone the Diaiden repository
@@ -48,16 +60,23 @@ cd example_NGS_metaG_fq_from_cold_seep/
 perl ~/MGBK/scripts/get_fq_list_from_gz.pl
 ```
 
-Usage
+Tutorial with example data
+- `$cpu`: 
+- `$fq_list`: 
+
 -----
 ### Step 1. assembly
 For NGS mstaG fq, we use trimmomatic for trimming and megahit for assembly.
 
 
-If directly performing co-assembly binning, just run s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl to trim and assemble.
+If performing coassembly binning, run s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl to trim and assemble.
 ```sh
-perl /PATH/TO/Diaiden.pl -i /PATH/TO/YOUR/genomes_dir -p /PATH/TO/Diaiden_dir -c 2 -b 2
+cd ~/MGBK_example
+mkdir coassembly_binning
+cd coassembly_binning
+#perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl $cpu $fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
 ```
+
 
 
 If performing multiple binning, first run s1_multisample_binning_1_trim_PE_trimmomatic_NGS.pl for all data, then edit assembly_design to run s1_multisample_binning_2_assembly_PE_megahit.pl.

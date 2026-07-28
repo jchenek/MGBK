@@ -10,7 +10,7 @@ use warnings;
 ($cpu, $fq_list, $adaptor) = @ARGV;
 
 #trimmomatic module
-open OU2, ">./s1.1_trim_PE_fq";
+open OU2, ">./s1.1_NGS_trim";
 open OU1, ">./fq_list_trim";
 print OU2 "#!/bin/bash\n";
 print OU2 "source ~/miniconda3/etc/profile.d/conda.sh\n";
@@ -40,4 +40,4 @@ print OU2 "gzip s1_trim_fq/*\n";
 close OU1;
 close OU2;
 
-system ("bash s1.1_trim_PE_fq");
+system ("bash s1.1_NGS_trim");

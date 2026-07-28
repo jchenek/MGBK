@@ -11,7 +11,7 @@ use warnings;
 
 ($cpu, $assembly_design) = @ARGV;
 
-open OU2, ">./s1.2_assembly";
+open OU2, ">./s1.2_NGS_assembly";
 print OU2 "#!/bin/bash\n";
 print OU2 "source ~/miniconda3/etc/profile.d/conda.sh\n";
 print OU2 "mkdir s1_assemblies_fq\n";
@@ -38,5 +38,5 @@ while(<IN2>){
 close IN2;
 close OU2;
 
-system ("bash s1.2_assembly");
+system ("bash s1.2_NGS_assembly");
 
