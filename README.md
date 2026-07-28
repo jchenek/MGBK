@@ -63,11 +63,12 @@ conda deactivate
 #This metawrap env is only used for bin_refinement
 cd ~
 git clone https://github.com/bxlab/metaWRAP.git
+#add ~/metaWRAP/bin to environment variable
 echo 'export PATH=~/metaWRAP/bin/:$PATH' >> ~/.bashrc
 source ~/.bashrc
 mamba create -y -n metawrap python=2.7
 conda activate metawrap
-mamba install bioconda::checkm-genome=1.0.18 -y
+mamba install bioconda::checkm-genome=1.0.18 biopython -y
 cd ~/metaWRAP/
 mkdir MY_CHECKM_FOLDER
 # Now manually download the database:
