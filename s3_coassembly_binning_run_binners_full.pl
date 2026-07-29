@@ -16,6 +16,7 @@ print OU2 "echo \"########running metabat2########\"\n";
 print OU2 "mkdir metabat2_1500\n";
 print OU2 "jgi_summarize_bam_contig_depths --outputDepth metabat2_1500/depth.txt $bam_dir/\*sorted.bam \n";
 print OU2 "metabat2 -i $assembly -a ./metabat2_1500/depth.txt -o ./metabat2_1500/bins/bin -t $cpu -m 1500\n";
+print OU2 "rm ./metabat2_1500/bins/*txt \n";
 print OU2 "echo \$(date) > ./metabat2_1500/done\n";
 print OU2 "echo \"########metabat2 finished########\"\n";
 
