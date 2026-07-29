@@ -68,7 +68,7 @@ echo 'export PATH=~/metaWRAP/bin/:$PATH' >> ~/.bashrc
 source ~/.bashrc
 mamba create -y -n metawrap python=2.7
 conda activate metawrap
-mamba install bioconda::checkm-genome=1.0.18 biopython -y
+mamba install biopython=1.68 bioconda::checkm-genome=1.0.12 -y
 cd ~/metaWRAP/
 mkdir MY_CHECKM_FOLDER
 # Now manually download the database:
@@ -76,7 +76,8 @@ cd MY_CHECKM_FOLDER
 wget https://data.ace.uq.edu.au/public/CheckM_databases/checkm_data_2015_01_16.tar.gz
 tar -xvf *.tar.gz
 rm *.gz
-checkm data setRoot ~/metaWRAP/MY_CHECKM_FOLDER/
+echo $(readlink -f ~/metaWRAP/MY_CHECKM_FOLDER/) #check path
+checkm data setRoot $(readlink -f ~/metaWRAP/MY_CHECKM_FOLDER/)
 conda deactivate
 
 #install metabat2
