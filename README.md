@@ -137,10 +137,11 @@ perl ~/MGBK/scripts/get_fq_list_from_gz.pl
 
 Step 1. trim and assembly
 ---------------
-For `short-read` metaG data, we use trimmomatic for trimming and megahit for assembly.
+We use trimmomatic and megahit to trim and assemble short-read metagenomic data, respectively.
 
-- `coassembly binning` run 's1_coassembly_binning_trim_and_coassembly_PE_megahit.pl' to trim and assemble.
+- `coassembly binning` Run 's1_coassembly_binning_trim_and_coassembly_PE_megahit.pl' to trim and assemble.
 ```sh
+# step 1 of coassembly binning
 cd ~/MGBK_example
 mkdir coassembly_binning
 cd coassembly_binning
@@ -149,10 +150,21 @@ perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl 80 ~/MGBK_ex
 ```
 
 
-- `multiple binning`, first run 's1_multisample_binning_1_NGS_trim.pl' to trim all fastq; then edit a tsv file `assembly_design` and run 's1_multisample_binning_2_NGS_assembly.pl'.
+- `multiple binning` First, run 's1_multisample_binning_1_NGS_trim.pl' to trim all metaG data. Then, edit the TSV file 'multisample_binning_assembly_design' and run 's1_multisample_binning_2_NGS_assembly.pl'
 
+```sh
+# step 1 of multisample binning
+cd ~/MGBK_example
+mkdir multisample_binning
+cd multisample_binning
+#perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl $cpu $fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+#perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl $cpu multisample_binning_assembly_design
+cp ~/MGBK/multisample_binning_assembly_design ./
+perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl 80 multisample_binning_assembly_design
+```
 
-`assembly_design` tells the scripts how many assemblies to be generated using which fastq file(s). For each assembly, it can be assembled from one sample or many samples (concatenated). This tsv file looks like this:
+`multisample_binning_assembly_design` tells the scripts how many assemblies to be generated using which fastq file(s). For each assembly, it can be constructed from a single sample or multiple samples (concatenated). This tsv file looks like this:
 
 
 "Name_of_single_assembly_1.fastq.gz`\t`path_to_raw_1.fastq.gz`\t`Name_of_single_assembly_2.fastq.gz`\t`path_to_raw_2.fastq.gz`\n`"
@@ -168,16 +180,7 @@ Here one `co-assembly` called 'Name_of_single_assembly' will be generated using 
 
 
 
-```sh
-cd ~/MGBK_example
-mkdir multisample_binning
-cd multisample_binning
-#perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl $cpu ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
-perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
-#perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl $cpu multisample_binning_assembly_design
-cp ~/MGBK/multisample_binning_assembly_design ./
-perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl 80 multisample_binning_assembly_design
-```
+
 
 For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
 
