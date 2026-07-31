@@ -233,22 +233,13 @@ For `refinement`, there are 3 options available: metaWRAP, MAGScoT, and DASTool.
 metaWRAP can only refine 3 d of bins at a time, I split the 5 sets of bins and run metaWRAP 3 times in total:
 
 
-`r1` CONCOCT, MetaBAT2
-
-
-`r2` COMEBin, SemiBin2
-
-
-`r3` r1, r2, MetaBinner
+`r1` CONCOCT, MetaBAT2; `r2` COMEBin, SemiBin2; `r3` r1, r2, MetaBinner
 
 
 If without COMEBin, I split the 4 sets of bins and run metaWRAP 2 times in total:
 
 
-`r1` CONCOCT, MetaBAT2
-
-
-`r2` r1, SemiBin2, MetaBinner
+`r1` CONCOCT, MetaBAT2; `r2` r1, SemiBin2, MetaBinner
 
 
 
