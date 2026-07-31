@@ -114,6 +114,20 @@ conda deactivate
 conda create -n drep -y
 conda activate drep
 mamba install bioconda::drep -y
+#remember to set your checkm database
+checkm data setRoot /path/to/your/miniconda3/envs/drep/checkm_data
+conda deactivate
+
+#install checkm2
+mamba create -n checkm2 -c bioconda -c conda-forge checkm2 -y
+
+#install gunc
+conda create -n gunc -y
+conda activate gunc
+mamba install -c bioconda gunc -y
+#Download GUNC DB
+mkdir -p /path/to/your/gunc_db/progenomes3/
+gunc download_db /path/to/your/gunc_db/progenomes3/ -db progenomes_3
 conda deactivate
 ```
 
@@ -277,6 +291,50 @@ cd ~/MGBK_example/multisample_binning
 #this scripts will detect s1_assemblies_res dir and bams files (from s2_multisample_binning_align_fq_for_bam_and_depth.pl) in the sub dirs
 #assembly_design used here is the same with s1_multisample_binning_2_assembly_PE_megahit.pl
 perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design 1500 80
+```
+
+For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
+
+Make sure Perl is available in your system.
+- `1`: tbw
+- `2`: tbw
+- `3`: tbw
+- `4`: tbw
+
+-----
+### Step 4. genome dereplication (only for multisample_binning)
+In multisample_binning, we will get a number of refined bins from each assembly. Some of the bins from different assemblies can be the same strain (ANI > 98%). We use drep to conduct Bin dereplication.
+
+If performing multiple binning, run s4_multisample_binning_derep_bins.pl
+```sh
+#must run this scripts in the same path with s1_multisample_binning_2_assembly_PE_megahit.pl
+cd ~/MGBK_example/multisample_binning
+#perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design $min_length $cpu
+#this scripts will detect s1_assemblies_res dir and bams files (from s2_multisample_binning_align_fq_for_bam_and_depth.pl) in the sub dirs
+#assembly_design used here is the same with s1_multisample_binning_2_assembly_PE_megahit.pl
+perl ~/MGBK/s4_multisample_binning_derep_bins.pl  multisample_binning_assembly_design 80
+```
+
+For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
+
+Make sure Perl is available in your system.
+- `1`: tbw
+- `2`: tbw
+- `3`: tbw
+- `4`: tbw
+
+-----
+### Step 5. check bin quality
+We use checkm2 and gunc to check the quality.
+
+If performing multiple binning, run s5_multisample_binning_derep_bins.pl
+```sh
+#must run this scripts in the same path with s1_multisample_binning_2_assembly_PE_megahit.pl
+cd ~/MGBK_example/multisample_binning
+#perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design $min_length $cpu
+#this scripts will detect s1_assemblies_res dir and bams files (from s2_multisample_binning_align_fq_for_bam_and_depth.pl) in the sub dirs
+#assembly_design used here is the same with s1_multisample_binning_2_assembly_PE_megahit.pl
+perl ~/MGBK/s4_multisample_binning_derep_bins.pl  multisample_binning_assembly_design 80
 ```
 
 For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
