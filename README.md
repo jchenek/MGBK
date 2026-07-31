@@ -109,6 +109,12 @@ conda create -n comebin -y
 conda activate comebin
 mamba install -c conda-forge -c bioconda comebin -y
 conda deactivate
+
+#install drep
+conda create -n drep -y
+conda activate drep
+mamba install bioconda::drep -y
+conda deactivate
 ```
 
 Download or clone the MGBK repository
