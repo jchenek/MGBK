@@ -8,6 +8,9 @@ use warnings;
 
 ($assembly_design, $cpu) = @ARGV;
 
+system("mkdir s4_derep");
+system("mkdir -p s4_derep/all_bins");
+
 open IN3, "$assembly_design";
 while(<IN3>){
 chomp;
@@ -19,9 +22,7 @@ $name =~ s/_1.fastq.gz$//;
 chdir("./s1_assemblies_res/$name\_assembly/s3_binning") or die "cannot detect ./s1_assemblies_res/$name\_assembly dir: $!";
 
 $dir = "./metawrap_refinement/round_final/metawrap_50_10_bins";
-system("mkdir s4_drep");
-system("mkdir -p s4_drep/all_bins");
-system("mkdir -p s3_binning/metawrap_refinement/round_final/metawrap_50_10_bins");
+system("mkdir -p ./metawrap_refinement/round_final/metawrap_50_10_bins");
 
 my$DIR_PATH = $dir;
 opendir DIR, ${DIR_PATH} or die "can not open dir \"$DIR_PATH\"\n";
@@ -29,7 +30,7 @@ my@filelist = readdir DIR;
 
 foreach my$file (@filelist) {
 	if($file =~ m/.fa/){
-	system("cp $dir/$file ./s4_drep/all_bins/$name\_$file");
+	system("cp $dir/$file ../../../s4_derep/all_bins/$name\_$file");
 	}
 }
 
@@ -38,18 +39,13 @@ chdir("../../../") or die "cannot go back: $!";
 }
 close IN3;
 
-#go to s3_binning
-chdir("./s1_assemblies_res/$name\_assembly/s3_binning/") or die "cannot detect ./s1_assemblies_res/$name\_assembly dir: $!";
-
-open OU2, ">./s4_drep_bins";
+#run drep
+open OU2, ">./s4_derep_bins";
 print OU2 "#!/bin/bash\n";
 print OU2 "source ~/miniconda3/etc/profile.d/conda.sh\n";
 print OU2 "conda activate drep\n";
 print OU2 "echo \"########running drep########\"\n";
-print OU2 "cd s4_drep\n";
+print OU2 "cd s4_derep\n";
 print OU2 "dRep dereplicate drep_output -p $cpu -comp 50 -con 10 --P_ani 0.9 --S_ani 0.98 -nc 0.75 -g all_bins/*.fa \n";
 print OU2 "cd ../ \n";
-system ("bash s4_drep_bins");
-
-#go back
-chdir("../../../") or die "cannot go back: $!";
+system ("bash s4_derep_bins");
