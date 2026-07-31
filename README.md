@@ -153,8 +153,6 @@ perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl 80 ~/MGBK_ex
 
 
 - `multiple binning` First, run 's1_multisample_binning_1_NGS_trim.pl' to trim all metaG data. Then, edit the TSV file 'multisample_binning_assembly_design' and run 's1_multisample_binning_2_NGS_assembly.pl'
-- `$cpu`: number of threads
-- `$fq_list`: the fq_list of raw data
 ```sh
 # step 1 of multisample binning
 cd ~/MGBK_example
@@ -218,7 +216,7 @@ perl ~/MGBK/s2_multisample_binning_align_fq_for_bam_and_depth.pl multisample_bin
 Based on the two benchmarks, binny and COMEBin consistently performed very well. However, due to installation issues with binny and to facilitate running this pipeline across multiple platforms, I will not include binny in my pipeline.
 
 
-Currently, 5 `binning software` tools are included, classified into 4 categories based on their algorithms (Kim et al., 2026):
+In MGBK, 5 `binning softwares` are included, classified into 4 categories based on their algorithms (Kim et al., 2026):
 
 - `Projection-based integration`: CONCOCT
 - `Probabilistic Modeling`: MetaBAT2
@@ -229,27 +227,37 @@ Currently, 5 `binning software` tools are included, classified into 4 categories
 Since COMEBin takes an extremely long time to run, a "no-COMEBin" version is provided as an alternative.
 
 
-For `refinement`, there are 3 options available: metaWRAP, MAGScoT, and DASTool. metaWRAP takes the longest time and consumes the most resources, but it indeed yields genomes with lower contamination and fewer chimeric genomes (Kim et at., 2026). Therefore, I still use metaWRAP as the tool for refinement.
+For `refinement`, there are 3 options available: metaWRAP, MAGScoT, and DASTool. Although metaWRAP takes the longest time and consumes the most resources, it yields genomes with lower contamination and fewer chimeric genomes (Kim et at., 2026). Therefore, I use metaWRAP for refinement in MGBK.
 
 
-metaWRAP can only refine 3 sets of bins at a time, I split the 5 sets of bins and run metaWRAP 3 times in total:
+metaWRAP can only refine 3 d of bins at a time, I split the 5 sets of bins and run metaWRAP 3 times in total:
 
 
-- `1`CONCOCT, MetaBAT2
-- `2`COMEBin, SemiBin2
-- `3`r1, r2, MetaBinner
+`r1` CONCOCT, MetaBAT2
+
+
+`r2` COMEBin, SemiBin2
+
+
+`r3` r1, r2, MetaBinner
 
 
 If without COMEBin, I split the 4 sets of bins and run metaWRAP 2 times in total:
 
 
-- `1`CONCOCT, MetaBAT2
-- `2`r1, SemiBin2, MetaBinner
+`r1` CONCOCT, MetaBAT2
+
+
+`r2` r1, SemiBin2, MetaBinner
 
 
 
-If performing coassembly binning, run s3_coassembly_binning_run_binners_full.pl or s3_coassembly_binning_run_binners_no_comebin.pl
+- `coassembly binning` Run 's3_coassembly_binning_run_binners_full.pl' or 's3_coassembly_binning_run_binners_no_comebin.pl'.
+- `$binning_PE_assembly_$min_length.fa`: the reformated and trimmed assembly from step2
+- `$min_length`: the minimum length of contig for binning (the same as step2)
+- `$s2_alignment_dir`: the dir where bam files are stored (output of step2)
 ```sh
+# step 3 of coassembly binning
 cd ~/MGBK_example/coassembly_binning
 mkdir s3_binning
 cd s3_binning
@@ -258,23 +266,16 @@ perl ~/MGBK/s3_coassembly_binning_run_binners_full.pl ~/MGBK_example/coassembly_
 ```
 
 
-If performing multiple binning, run s3_multisample_binning_run_binners_full.pl or s3_multisample_binning_run_binners_no_comebin.pl.
+- `multisample binning` Run 's3_multisample_binning_run_binners_full.pl' or 's3_multisample_binning_run_binners_no_comebin.pl'.
 ```sh
-#must run this scripts in the same path with s1_multisample_binning_2_assembly_PE_megahit.pl
+# step 2 of multisample binning
+# MUST be run in the same path as 's1_multisample_binning_2_assembly_PE_megahit.pl'
 cd ~/MGBK_example/multisample_binning
-#perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design $min_length $cpu
-#this scripts will detect s1_assemblies_res dir and bams files (from s2_multisample_binning_align_fq_for_bam_and_depth.pl) in the sub dirs
-#assembly_design used here is the same with s1_multisample_binning_2_assembly_PE_megahit.pl
+# perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design $min_length $cpu
+# this script will detect s1_assemblies_res dir and bams files (from s2_multisample_binning_align_fq_for_bam_and_depth.pl) in the sub dirs
+# assembly_design used here is the same as the one used for 's1_multisample_binning_2_assembly_PE_megahit.pl'
 perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design 1500 80
 ```
-
-For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
-
-Make sure Perl is available in your system.
-- `1`: tbw
-- `2`: tbw
-- `3`: tbw
-- `4`: tbw
 
 -----
 ### Step 4. genome dereplication (only for multisample_binning)
