@@ -140,6 +140,8 @@ Step 1. trim and assembly
 We use trimmomatic and megahit to trim and assemble short-read metagenomic data, respectively. (Scripts for long sequencing & NGS hybrid assembly are coming soon)
 
 - `coassembly binning` Run 's1_coassembly_binning_trim_and_coassembly_PE_megahit.pl' to trim and assemble.
+- `$cpu`: number of threads
+- `$fq_list`: the fq_list of raw data
 ```sh
 # step 1 of coassembly binning
 cd ~/MGBK_example
@@ -151,7 +153,8 @@ perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl 80 ~/MGBK_ex
 
 
 - `multiple binning` First, run 's1_multisample_binning_1_NGS_trim.pl' to trim all metaG data. Then, edit the TSV file 'multisample_binning_assembly_design' and run 's1_multisample_binning_2_NGS_assembly.pl'
-
+- `$cpu`: number of threads
+- `$fq_list`: the fq_list of raw data
 ```sh
 # step 1 of multisample binning
 cd ~/MGBK_example
@@ -180,11 +183,6 @@ Here one `co-assembly` called 'Name_of_single_assembly' will be generated using 
 
 
 An example of the `multisample_binning_assembly_design` file can be found in `~/MGBK/multisample_binning_assembly_design`.
-
-
-- `$cpu`: number of threads
-- `$fq_list`: the fq_list of raw data
-
 
 Step 2. alignment
 ---------------
