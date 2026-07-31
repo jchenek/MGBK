@@ -188,9 +188,12 @@ Step 2. alignment
 ---------------
 We use minibwa to align short reads against reference genomes.
 
-
-If performing coassembly binning, run s2_coassembly_binning_align_fq_for_bam_and_depth.pl to align trimmed fq against the co-assembled genome.
+- `coassembly binning` Run 's2_coassembly_binning_align_fq_for_bam_and_depth.pl' to align trimmed fq against the co-assembled genome.
+- `$assembly`: the co-assembled genome from step1
+- `$min_length`: the minimum length of contig for binning
+- `$fq_list_trim`: the fq_list of clean data from step1
 ```sh
+# step 2 of coassembly binning
 cd ~/MGBK_example/coassembly_binning
 mkdir s2_alignment
 cd s2_alignment
@@ -199,29 +202,23 @@ perl ~/MGBK/s2_coassembly_binning_align_fq_for_bam_and_depth.pl ~/MGBK_example/c
 ```
 
 
-If performing multiple binning, first run s1_multisample_binning_1_trim_PE_trimmomatic_NGS.pl for all data, then edit a assembly_design tsv to run s1_multisample_binning_2_assembly_PE_megahit.pl
+- `multisample binning` Run 's2_multisample_binning_align_fq_for_bam_and_depth.pl' to align all trimmed fq against all assemblies.
 ```sh
-#must run this scripts in the same path with s1_multisample_binning_2_assembly_PE_megahit.pl
+# step 2 of multisample binning
+# MUST be run in the same path as 's1_multisample_binning_2_assembly_PE_megahit.pl'
 cd ~/MGBK_example/multisample_binning
-#perl ~/MGBK/s2_multisample_binning_align_fq_for_bam_and_depth.pl multisample_binning_assembly_design $min_length $cpu $fq_list_trim
-#this scripts will detect s1_assemblies_res dir and mapping read for each assemblies
-#assembly_design used here is the same with s1_multisample_binning_2_assembly_PE_megahit.pl
+# perl ~/MGBK/s2_multisample_binning_align_fq_for_bam_and_depth.pl multisample_binning_assembly_design $min_length $cpu $fq_list_trim
+# this script will detect s1_assemblies_res dir and map clean read to each assemblies
+# assembly_design used here is the same as the one used for 's1_multisample_binning_2_assembly_PE_megahit.pl'
 perl ~/MGBK/s2_multisample_binning_align_fq_for_bam_and_depth.pl multisample_binning_assembly_design 1500 80 fq_list_trim
 ```
 
-For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
-
-Make sure Perl is available in your system.
-- `1`: tbw
-- `2`: tbw
-- `3`: tbw
-- `4`: tbw
-
 -----
 ### Step 3. binning
-Based on the two NC papers, binny and COMEBin consistently performed very well. However, due to installation issues with binny and to facilitate running this pipeline across multiple platforms, I will not include binny in my pipeline.
+Based on the two benchmarks, binny and COMEBin consistently performed very well. However, due to installation issues with binny and to facilitate running this pipeline across multiple platforms, I will not include binny in my pipeline.
 
-Currently, 5 binning software tools are included, classified into 4 categories based on their algorithms (Kim et al., 2026):
+
+Currently, 5 `binning software` tools are included, classified into 4 categories based on their algorithms (Kim et al., 2026):
 
 - `Projection-based integration`: CONCOCT
 - `Probabilistic Modeling`: MetaBAT2
@@ -232,19 +229,23 @@ Currently, 5 binning software tools are included, classified into 4 categories b
 Since COMEBin takes an extremely long time to run, a "no-COMEBin" version is provided as an alternative.
 
 
-Currently, there are 3 options available: metaWRAP, MAGScoT, and DASTool. metaWRAP takes the longest time and consumes the most resources, but it indeed yields genomes with lower contamination and fewer chimeric genomes (Kim et at., 2026). Therefore, I still use metaWRAP as the tool for refinement.
+For `refinement`, there are 3 options available: metaWRAP, MAGScoT, and DASTool. metaWRAP takes the longest time and consumes the most resources, but it indeed yields genomes with lower contamination and fewer chimeric genomes (Kim et at., 2026). Therefore, I still use metaWRAP as the tool for refinement.
 
 
-Since metaWRAP can only refine 3 sets of bins at a time, I split the 5 sets of bins and run metaWRAP 3 times in total:
+metaWRAP can only refine 3 sets of bins at a time, I split the 5 sets of bins and run metaWRAP 3 times in total:
 
-CONCOCT, MetaBAT2
-COMEBin, SemiBin2
-r1, r2, MetaBinner
+
+- `1`CONCOCT, MetaBAT2
+- `2`COMEBin, SemiBin2
+- `3`r1, r2, MetaBinner
+
 
 If without COMEBin, I split the 4 sets of bins and run metaWRAP 2 times in total:
 
-CONCOCT, MetaBAT2
-r1, SemiBin2, MetaBinner
+
+- `1`CONCOCT, MetaBAT2
+- `2`r1, SemiBin2, MetaBinner
+
 
 
 If performing coassembly binning, run s3_coassembly_binning_run_binners_full.pl or s3_coassembly_binning_run_binners_no_comebin.pl
