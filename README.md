@@ -1,9 +1,9 @@
 MGBK (MetaGenomic Binning Kit)
 =======
 
-MGBK is a pipeline for metagenomic binning. We can start with the metaG raw fastq data and proceed to refined bins or metagenome-assembled genomes (MAGs). This pipeline is designed based on two papers published on Nature Communications:
-- `Kim et al., 2026`: Comprehensive benchmarking of metagenomic binning tools reveals key factors for improved genome recovery
-- `Han et al., 2025`: Benchmarking metagenomic binning tools on real datasets across sequencing platforms and binning modes
+MGBK is a metagenomic binning pipeline that processes raw fastq data into refined bins, built on benchmarks published in Nature Communications.
+- `Kim, J., Kim, N., Cha, J. H., Ma, J., & Lee, I. (2026). Comprehensive benchmarking of metagenomic binning tools reveals key factors for improved genome recovery. Nature Communications, 17(1), 3467. https://doi.org/10.1038/s41467-026-71521-w`
+- `Han, H., Wang, Z., & Zhu, S. (2025). Benchmarking metagenomic binning tools on real datasets across sequencing platforms and binning modes. Nature Communications, 16(1), 2865. https://doi.org/10.1038/s41467-025-57957-6`
 
 Installation
 ---------------
