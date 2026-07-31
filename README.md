@@ -130,10 +130,10 @@ cd example_NGS_metaG_fq_from_cold_seep/
 # prepare a fq_list file for further analysis
 perl ~/MGBK/scripts/get_fq_list_from_gz.pl
 ```
-`fq_list`: This is a tsv file that looks like this: "A_id\tA_PATH_1.fq\tA_PATH_2.fq\nB_id\tB_PATH_1.fq\tB_PATH_2.fq\nC_id\tC_PATH_1.fq\tC_PATH_2.fq\n". You can get this file by ~/MGBK/scripts/get_fq_list_from_gz.pl or make one using any text editor you like.
+`fq_list`: This is a tsv file that looks like this: "A_id`\t`A_PATH_1.fq`\t`A_PATH_2.fq`\n`B_id`\t`B_PATH_1.fq`\t`B_PATH_2.fq`\n`C_id`\t`C_PATH_1.fq`\t`C_PATH_2.fq`\n`". You can obtain this file using ~/MGBK/scripts/get_fq_list_from_gz.pl or create one using any text editor you like.
 
 
-`~/MGBK/scripts/get_fq_list_from_gz.pl`: This perl scripts will detect all files under current path, extract those ended with "gz", and create a fq_list.
+`~/MGBK/scripts/get_fq_list_from_gz.pl`: This script will detect all files under the current path, extract those ending with 'gz', and create a fq_list.
 
 Step 1. trim and assembly
 ---------------
