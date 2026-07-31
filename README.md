@@ -8,16 +8,16 @@ MGBK is a metagenomic binning pipeline that processes raw fastq data into refine
 Installation
 ---------------
 Before installing MGBK, please ensure `miniconda` and `mamba` are properly installed in your local system.
-- `miniconda` [https://www.anaconda.com/docs/getting-started/miniconda/install/](https://www.anaconda.com/docs/getting-started/miniconda/install/)
-- `mamba` [https://anaconda.org/channels/conda-forge/packages/mamba/overview](https://anaconda.org/channels/conda-forge/packages/mamba/overview)
+- `latest miniconda` [https://www.anaconda.com/docs/getting-started/miniconda/install/](https://www.anaconda.com/docs/getting-started/miniconda/install/)
+- `latest mamba` [https://anaconda.org/channels/conda-forge/packages/mamba/overview](https://anaconda.org/channels/conda-forge/packages/mamba/overview)
 
 ```sh
-#if you are using old Linux system, you can try old version conda
+#if you are using old Linux system, you can try old-version conda
 wget https://repo.anaconda.com/miniconda/Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
 #type 'yes' twice
 sh Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
 
-#if you are using old Linux system, you can try old version mamba
+#if you are using old Linux system, you can try old-version mamba
 conda install conda-forge::mamba=1.5.6 -y
 ```
 
@@ -30,50 +30,35 @@ conda config --add channels bioconda
 conda config --add channels ursky
 conda config --set channel_priority flexible
 
-#install trimmomatic
-conda create -n trimmomatic -y
-conda activate trimmomatic
-mamba install bioconda::trimmomatic=0.39 -y
-conda deactivate
+# install trimmomatic env
+mamba create -n trimmomatic trimmomatic=0.39 -y
 
-#install megahit
-conda create -n megahit -y
-conda activate megahit
-mamba install bioconda::megahit -y
-conda deactivate
+# install megahit env
+mamba create -n megahit -c bioconda megahit -y
 
-#install seqkit
-conda create -n seqkit -y
-conda activate seqkit
-mamba install bioconda::seqkit -y
-conda deactivate
+# install seqkit
+mamba create -n seqkit -c bioconda seqkit -y
 
-#install minibwa
-conda create -n minibwa -y
-conda activate minibwa
-mamba install minibwa -y
-conda deactivate
+# install minibwa
+mamba create -n minibwa minibwa -y
 
-#install samtools
-#metabat2 was also installed in this env for the command 'jgi_summarize_bam_contig_depths'
-conda create -n samtools -y
-conda activate samtools
-mamba install bioconda::metabat2 bioconda::samtools -y
-conda deactivate
+# install samtools
+# metabat2 was also installed in this env for the command 'jgi_summarize_bam_contig_depths'
+mamba create -n samtools -c bioconda metabat2 samtools -y
 
-#install metawrap (simplified)
-#This metawrap env is only used for bin_refinement
+# install metawrap (simplified)
+# This metawrap env is only used for bin_refinement
 cd ~
 git clone https://github.com/bxlab/metaWRAP.git
-#add ~/metaWRAP/bin to environment variable
+# add ~/metaWRAP/bin to environment variable
 echo 'export PATH=~/metaWRAP/bin/:$PATH' >> ~/.bashrc
 source ~/.bashrc
 mamba create -y -n metawrap python=2.7
 conda activate metawrap
 mamba install biopython=1.68 bioconda::checkm-genome=1.0.18 -y
 cd ~/metaWRAP/
+# manually download checkm database:
 mkdir MY_CHECKM_FOLDER
-# Now manually download the database:
 cd MY_CHECKM_FOLDER
 wget https://data.ace.uq.edu.au/public/CheckM_databases/checkm_data_2015_01_16.tar.gz
 tar -xvf *.tar.gz
@@ -82,48 +67,36 @@ echo $(readlink -f ~/metaWRAP/MY_CHECKM_FOLDER/) #check path
 checkm data setRoot $(readlink -f ~/metaWRAP/MY_CHECKM_FOLDER/)
 conda deactivate
 
-#install metabat2
-conda create -n metabat2 -y
-conda activate metabat2
-mamba install bioconda::metabat2 -y
-conda deactivate
+# install metabat2
+mamba create -n metabat2 -c bioconda metabat2 -y
 
-#install concoct
-conda create -n concoct -y
-conda activate concoct
-mamba install bioconda::concoct -y
-conda deactivate
+# install concoct
+mamba create -n concoct -c bioconda concoct -y
 
-#install SemiBin2
-conda create -n SemiBin -y
-conda activate SemiBin
-mamba install -c conda-forge -c bioconda semibin -y
-conda deactivate
+# install SemiBin2
+mamba create -n SemiBin -c conda-forge -c bioconda semibin -y
 
-#install MetaBinner
+# install MetaBinner
 cd ~
 git clone https://github.com/ziyewang/MetaBinner.git
 cd MetaBinner
 mamba env create -f metabinner_env.yaml -y
 
-#install COMEBin (cpu version)
-conda create -n comebin -y
-conda activate comebin
-mamba install -c conda-forge -c bioconda comebin -y
-conda deactivate
+# install COMEBin (cpu version)
+mamba create -n comebin -c conda-forge -c bioconda comebin -y
 
-#install drep
+# install drep
 conda create -n drep -y
 conda activate drep
 mamba install bioconda::drep -y
-#remember to set your checkm database
+# remember to set your checkm database
 checkm data setRoot /path/to/your/miniconda3/envs/drep/checkm_data
 conda deactivate
 
-#install checkm2
+# install checkm2
 mamba create -n checkm2 -c bioconda -c conda-forge checkm2 -y
 
-#install gunc
+# install gunc
 conda create -n gunc -y
 conda activate gunc
 mamba install -c bioconda gunc -y
@@ -139,12 +112,12 @@ cd ~
 git clone https://github.com/jchenek/MGBK.git
 ```
 
-
 Users' Guide
 ---------------
-Download example NGS data from figshare: [download](https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945).
+Before starting this tutorial, please [download](https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945) the example NGS dataset from Figshare.
 
-Upload the downloaded file '33101945.zip' to the dir ~/MGBK_example.
+
+Move the downloaded file `33101945.zip` to the ~/MGBK_example directory.
 ```sh
 cd ~
 mkdir MGBK_example
