@@ -137,7 +137,7 @@ perl ~/MGBK/scripts/get_fq_list_from_gz.pl
 
 Step 1. trim and assembly
 ---------------
-We use trimmomatic and megahit to trim and assemble short-read metagenomic data, respectively.
+We use trimmomatic and megahit to trim and assemble short-read metagenomic data, respectively. (Scripts for long sequencing & NGS hybrid assembly are coming soon)
 
 - `coassembly binning` Run 's1_coassembly_binning_trim_and_coassembly_PE_megahit.pl' to trim and assemble.
 ```sh
@@ -179,16 +179,11 @@ Here one `assembly` called 'Name_of_single_assembly' will be generated using the
 Here one `co-assembly` called 'Name_of_single_assembly' will be generated using the concatenated PE reads 'path_to_raw_1.fastq.gz & path_to_raw2_1.fastq.gz & path_to_raw3_1.fastq.gz' and 'path_to_raw1_2.fastq.gz & path_to_raw2_2.fastq.gz & path_to_raw3_2.fastq.gz'.
 
 
+An example of the `multisample_binning_assembly_design` file can be found in `~/MGBK/multisample_binning_assembly_design`.
 
 
-
-For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
-
-Make sure Perl is available in your system.
-- `1`: tbw
-- `2`: tbw
-- `3`: tbw
-- `4`: tbw
+- `$cpu`: number of threads
+- `$fq_list`: the fq_list of raw data
 
 
 Step 2. alignment
