@@ -8,8 +8,8 @@ MGBK is a metagenomic binning pipeline that processes raw fastq data into refine
 Installation
 ---------------
 Before installing MGBK, please ensure `miniconda` and `mamba` are properly installed in your local system.
-`miniconda` [https://www.anaconda.com/docs/getting-started/miniconda/install/](https://www.anaconda.com/docs/getting-started/miniconda/install/)
-`mamba` [https://anaconda.org/channels/conda-forge/packages/mamba/overview](https://anaconda.org/channels/conda-forge/packages/mamba/overview)
+- `miniconda` [https://www.anaconda.com/docs/getting-started/miniconda/install/](https://www.anaconda.com/docs/getting-started/miniconda/install/)
+- `mamba` [https://anaconda.org/channels/conda-forge/packages/mamba/overview](https://anaconda.org/channels/conda-forge/packages/mamba/overview)
 
 ```sh
 #if you are using old Linux system, you can try old version conda
