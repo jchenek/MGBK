@@ -1,14 +1,16 @@
 MGBK (MetaGenomic Binning Kit)
 =======
 
-MGBK is a metagenomic binning pipeline that processes raw fastq data into refined bins, built on benchmarks published in Nature Communications.
+MGBK is a metagenomic binning pipeline that processes raw fastq data into refined bins, built on two benchmarks published in Nature Communications.
 - `Kim, J., Kim, N., Cha, J. H., Ma, J., & Lee, I. (2026). Comprehensive benchmarking of metagenomic binning tools reveals key factors for improved genome recovery. Nature Communications, 17(1), 3467. https://doi.org/10.1038/s41467-026-71521-w`
 - `Han, H., Wang, Z., & Zhu, S. (2025). Benchmarking metagenomic binning tools on real datasets across sequencing platforms and binning modes. Nature Communications, 16(1), 2865. https://doi.org/10.1038/s41467-025-57957-6`
 
 Installation
 ---------------
+Before installing MGBK, please ensure `miniconda` and `mamba` are properly installed in your local system.
+`miniconda` [https://www.anaconda.com/docs/getting-started/miniconda/install/](https://www.anaconda.com/docs/getting-started/miniconda/install/)
+`mamba` [https://anaconda.org/channels/conda-forge/packages/mamba/overview](https://anaconda.org/channels/conda-forge/packages/mamba/overview)
 
-Make sure `conda` and `mamba` have been installed in advanced.
 ```sh
 #if you are using old Linux system, you can try old version conda
 wget https://repo.anaconda.com/miniconda/Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
