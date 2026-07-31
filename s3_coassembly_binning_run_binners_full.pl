@@ -80,7 +80,7 @@ print OU2 "metawrap bin_refinement -o round_2 -t $cpu -c 50 -A ../SemiBin2_$min_
 print OU2 "mkdir -p round_2/metawrap_50_10_bins/ \n";
 print OU2 "mkdir -p ../MetaBinner_$min_length/bins/ \n";
 print OU2 "mv round_2/metawrap_50_10_bins/ round_2/r2_metawrap_50_10_bins/ \n";
-print OU2 "metawrap bin_refinement -o round_3_final -t $cpu -c 50 -A round_1/r1_metawrap_50_10_bins -B round_2/r2_metawrap_50_10_bins/ -C ../MetaBinner_$min_length/bins/ \n";
+print OU2 "metawrap bin_refinement -o round_final -t $cpu -c 50 -A round_1/r1_metawrap_50_10_bins -B round_2/r2_metawrap_50_10_bins/ -C ../MetaBinner_$min_length/bins/ \n";
 print OU2 "cd ../ \n";
 
 system ("bash s3_run_binners");

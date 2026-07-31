@@ -120,7 +120,7 @@ git clone https://github.com/jchenek/MGBK.git
 
 Users' Guide
 ---------------
-Download example NGS data from DOI: [https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945](https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945).
+Download example NGS data from figshare: [download](https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945).
 
 Upload the downloaded file '33101945.zip' to the dir ~/MGBK_example.
 ```sh
