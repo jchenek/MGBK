@@ -133,14 +133,13 @@ perl ~/MGBK/scripts/get_fq_list_from_gz.pl
 `fq_list`: This is a tsv file that looks like this: "A_id`\t`A_PATH_1.fq`\t`A_PATH_2.fq`\n`B_id`\t`B_PATH_1.fq`\t`B_PATH_2.fq`\n`C_id`\t`C_PATH_1.fq`\t`C_PATH_2.fq`\n`". You can obtain this file using ~/MGBK/scripts/get_fq_list_from_gz.pl or create one using any text editor you like.
 
 
-`~/MGBK/scripts/get_fq_list_from_gz.pl`: This script will detect all files under the current path, extract those ending with 'gz', and create a fq_list.
+`~/MGBK/scripts/get_fq_list_from_gz.pl`: This script will detect all files under the current path, extract those ending with "gz", and create a fq_list.
 
 Step 1. trim and assembly
 ---------------
-For NGS metaG data, we use trimmomatic for trimming and megahit for assembly.
+For `short-read` metaG data, we use trimmomatic for trimming and megahit for assembly.
 
-
-For `coassembly binning`, run 's1_coassembly_binning_trim_and_coassembly_PE_megahit.pl' to trim and assemble.
+- `coassembly binning` run 's1_coassembly_binning_trim_and_coassembly_PE_megahit.pl' to trim and assemble.
 ```sh
 cd ~/MGBK_example
 mkdir coassembly_binning
@@ -150,7 +149,7 @@ perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl 80 ~/MGBK_ex
 ```
 
 
-For `multiple binning`, first run 's1_multisample_binning_1_NGS_trim.pl' to trim all fastq; then edit a tsv file `assembly_design` and run 's1_multisample_binning_2_NGS_assembly.pl'.
+- `multiple binning`, first run 's1_multisample_binning_1_NGS_trim.pl' to trim all fastq; then edit a tsv file `assembly_design` and run 's1_multisample_binning_2_NGS_assembly.pl'.
 
 
 `assembly_design` tells the scripts how many assemblies to be generated using which fastq file(s). For each assembly, it can be assembled from one sample or many samples (concatenated). This tsv file looks like this:
