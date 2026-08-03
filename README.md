@@ -97,8 +97,9 @@ checkm data setRoot /path/to/your/miniconda3/envs/drep/checkm_data
 conda deactivate
 
 # install checkm2
-mamba create -n checkm2 -c bioconda -c conda-forge checkm2 -y
+conda create -n checkm2 -y
 conda activate checkm2
+mamba install bioconda::checkm2 -y
 checkm2 database --download --path /path/to/your/checkm2_db/
 conda deactivate
 
