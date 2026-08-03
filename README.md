@@ -89,6 +89,7 @@ mamba env create -f metabinner_env.yaml -y
 mamba create -n comebin -c conda-forge -c bioconda comebin -y
 conda activate comebin
 # remember to set your checkm database
+# if mamba fail to download checkm database, you can run 'checkm database setRoot' using the one downloaded for metawrap
 checkm data setRoot $(readlink -f ~/metaWRAP/MY_CHECKM_FOLDER/)
 conda deactivate
 
@@ -97,6 +98,7 @@ conda create -n drep -y
 conda activate drep
 mamba install bioconda::drep -y
 # remember to set your checkm database
+# if mamba fail to download checkm database, you can run 'checkm database setRoot' using the one downloaded for metawrap
 checkm data setRoot $(readlink -f ~/metaWRAP/MY_CHECKM_FOLDER/)
 conda deactivate
 
@@ -211,14 +213,14 @@ perl ~/MGBK/s2_coassembly_binning_align_fq_for_bam_and_depth.pl ~/MGBK_example/c
 # MUST be run in the same path as 's1_multisample_binning_2_assembly_PE_megahit.pl'
 cd ~/MGBK_example/multisample_binning
 # usage: perl ~/MGBK/s2_multisample_binning_align_fq_for_bam_and_depth.pl multisample_binning_assembly_design $min_length $cpu $fq_list_trim
-# this script will detect s1_assemblies_res dir and map clean read to each assemblies
+# this script will detect s1_assemblies_res dir and map clean read to all assemblies
 # assembly_design used here is the same as the one used for 's1_multisample_binning_2_assembly_PE_megahit.pl'
 perl ~/MGBK/s2_multisample_binning_align_fq_for_bam_and_depth.pl multisample_binning_assembly_design 1500 80 fq_list_trim
 ```
 
 -----
 ### Step 3. binning
-Based on the two benchmarks, binny and COMEBin consistently performed very well. However, due to installation issues with binny and to facilitate running this pipeline across multiple platforms, I will not include binny in my pipeline.
+Based on the two benchmarks, binny and COMEBin consistently performed very well. However, due to installation issues with binny and to facilitate running this pipeline across multiple platforms, I do not include binny in my pipeline.
 
 
 In MGBK, 5 `binning softwares` are included, classified into 4 categories based on their algorithms (Kim et al., 2026):
@@ -232,19 +234,19 @@ In MGBK, 5 `binning softwares` are included, classified into 4 categories based 
 Since COMEBin takes an extremely long time to run, a "no-COMEBin" version is provided as an alternative.
 
 
-For `refinement`, there are 3 options available: metaWRAP, MAGScoT, and DASTool. Although metaWRAP takes the longest time and consumes the most resources, it yields genomes with lower contamination and fewer chimeric genomes (Kim et at., 2026). Therefore, I use metaWRAP for refinement in MGBK.
+For `refinement`, there are 3 popular options: metaWRAP, MAGScoT, and DASTool. Although metaWRAP takes the longest time and consumes the most resources, it yields genomes with lower contamination and fewer chimeric genomes (Kim et at., 2026). Therefore, I use metaWRAP for refinement in MGBK.
 
 
-metaWRAP can only refine 3 d of bins at a time, I split the 5 sets of bins and run metaWRAP 3 times in total:
+Since metaWRAP can only refine 3 bin dirs at a time, I split the 5 bin dirs and run metaWRAP 3 times in total:
 
 
-`r1`: CONCOCT, MetaBAT2; `r2`: COMEBin, SemiBin2; `r3`: r1, r2, MetaBinner
+`r1`: CONCOCT, MetaBAT2; `r2`: COMEBin, SemiBin2; `r3`: r1_bin_dir, r2_bin_dir, MetaBinner
 
 
-If without COMEBin, I split the 4 sets of bins and run metaWRAP 2 times in total:
+If without COMEBin, I split the 4 bin dirs and run metaWRAP 2 times in total:
 
 
-`r1`: CONCOCT, MetaBAT2; `r2`: r1, SemiBin2, MetaBinner
+`r1`: CONCOCT, MetaBAT2; `r2`: r1_bin_dir, SemiBin2, MetaBinner
 
 
 
