@@ -288,7 +288,10 @@ perl ~/MGBK/s4_multisample_binning_derep_bins.pl multisample_binning_assembly_de
 
 -----
 ### Step 5. check bin quality
-We use checkm2 and gunc to check the quality of bins.
+We use checkm2 and gunc to check the quality of bins. Check the results in `s5_checkm2_out/quality_report.tsv` and `s5_gunc_out/`.
+
+
+A good bin should be: `s5_checkm2_out/quality_report.tsv` based on checkm2 and `s5_checkm2_out/quality_report.tsv` based on gunc
 
 - `coassembly binning` Run 's5_check_bins.pl'
 - `$final_bin_dir`: the final bin dir; for 'coassembly binning', this dir is '/path/to/metawrap_refinement/round_final/metawrap_50_10_bins'
@@ -298,13 +301,13 @@ We use checkm2 and gunc to check the quality of bins.
 # step 5 of coassembly binning
 cd coassembly_binning/s3_binning/metawrap_refinement/round_2_final
 # perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $checkm2_db.dmnd $gunc_db.dmnd
-perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/gunc_db/progenomes3/gunc_db_progenomes3.dmnd
+perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/checkm2_db/CheckM2_database/uniref100.KO.1.dmnd ~/gunc_db/progenomes3/gunc_db_progenomes3.dmnd
 ```
 - `multisample binning` Run 's5_check_bins.pl'
 - `$final_bin_dir`: the final bin dir; for 'multisample binning', this dir is '/path/to/s4_derep/drep_output/dereplicated_genomes'
 ```sh
 # step 5 of multisample binning
 cd ~/MGBK_example/multisample_binning/s4_derep/drep_output
-# perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $gunc_db.dmnd
-perl ~/MGBK/s5_check_bins.pl dereplicated_genomes 80 ~/gunc_db/progenomes3/gunc_db_progenomes3.dmnd
+# perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $checkm2_db.dmnd $gunc_db.dmnd
+perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/checkm2_db/CheckM2_database/uniref100.KO.1.dmnd ~/gunc_db/progenomes3/gunc_db_progenomes3.dmnd
 ```
