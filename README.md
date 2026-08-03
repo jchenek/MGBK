@@ -25,10 +25,6 @@ conda install conda-forge::mamba=1.5.6 -y
 ```
 
 2. Create conda environments for MGBK.
-
-
-
-If you fail to download the databases below, you can try downloading them from my [Quark Cloud]() (data updated on Aug. 3rd, 2026).
 ```sh
 conda update conda -y
 conda config --add channels defaults
@@ -122,6 +118,7 @@ mkdir -p /path/to/your/gunc_db/progenomes3/
 gunc download_db /path/to/your/gunc_db/progenomes3/ -db progenomes_3
 conda deactivate
 ```
+If you fail to download the databases above, you can try downloading them from my [Quark Cloud]() (updated on Aug. 3rd, 2026).
 
 
 3. Download or clone the MGBK repository
