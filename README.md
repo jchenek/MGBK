@@ -182,7 +182,7 @@ perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl 80 multisample_binning_asse
 "Name_of_single_assembly_1.fastq.gz`\t`path_to_raw_1.fastq.gz`\t`Name_of_single_assembly_2.fastq.gz`\t`path_to_raw_2.fastq.gz`\n`" # Here one `assembly` called 'Name_of_single_assembly' will be generated using the PE reads 'path_to_raw_1.fastq.gz' and 'path_to_raw_2.fastq.gz'
 
 
-"Name_of_multiple_assembly_1.fastq.gz`\t`path_to_raw1_1.fastq.gz` `path_to_raw2_1.fastq.gz` `path_to_raw3_1.fastq.gz`\t`Name_of_multiple_assembly_2.fastq.gz`\t`path_to_raw1_2.fastq.gz` `path_to_raw2_2.fastq.gz` `path_to_raw3_2.fastq.gz`\n`" # Here one `co-assembly` called 'Name_of_single_assembly' will be generated using the concatenated PE reads 'path_to_raw_1.fastq.gz & path_to_raw2_1.fastq.gz & path_to_raw3_1.fastq.gz' and 'path_to_raw1_2.fastq.gz & path_to_raw2_2.fastq.gz & path_to_raw3_2.fastq.gz'.
+"Name_of_multiple_assembly_1.fastq.gz`\t`path_to_raw1_1.fastq.gz` `path_to_raw2_1.fastq.gz` `path_to_raw3_1.fastq.gz`\t`Name_of_multiple_assembly_2.fastq.gz`\t`path_to_raw1_2.fastq.gz` `path_to_raw2_2.fastq.gz` `path_to_raw3_2.fastq.gz`\n`" # Here one `co-assembly` called 'Name_of_multiple_assembly' will be generated using the concatenated PE reads 'path_to_raw_1.fastq.gz & path_to_raw2_1.fastq.gz & path_to_raw3_1.fastq.gz' and 'path_to_raw1_2.fastq.gz & path_to_raw2_2.fastq.gz & path_to_raw3_2.fastq.gz'.
 
 
 An example of the `multisample_binning_assembly_design` file can be found in `~/MGBK/multisample_binning_assembly_design`.
