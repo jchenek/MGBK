@@ -289,10 +289,10 @@ perl ~/MGBK/s4_multisample_binning_derep_bins.pl multisample_binning_assembly_de
 
 -----
 ### Step 5. check bin quality
-We use checkm2 and gunc to check the quality of bins. Check the results in `s5_checkm2_out/quality_report.tsv` and `s5_gunc_out/`.
+We use checkm2 and gunc to check the quality of bins. Check the results in `s5_checkm2_out/quality_report.tsv` and `s5_gunc_out/GUNC.progenomes_3.maxCSS_level.tsv`.
 
 
-A good bin should be: `s5_checkm2_out/quality_report.tsv` based on checkm2 and `s5_checkm2_out/quality_report.tsv` based on gunc
+A good bin should be: `Completeness > 90% & Contamination < 5%` based on checkm2 and `clade_separation_score (CSS) < 0.45 & reference_representation_score (RRS) > 0.5` based on gunc
 
 - `coassembly binning` Run 's5_check_bins.pl'
 - `$final_bin_dir`: the final bin dir; for 'coassembly binning', this dir is '/path/to/metawrap_refinement/round_final/metawrap_50_10_bins'
