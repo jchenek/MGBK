@@ -87,13 +87,17 @@ mamba env create -f metabinner_env.yaml -y
 
 # install COMEBin (cpu version)
 mamba create -n comebin -c conda-forge -c bioconda comebin -y
+conda activate comebin
+# remember to set your checkm database
+checkm data setRoot $(readlink -f ~/metaWRAP/MY_CHECKM_FOLDER/)
+conda deactivate
 
 # install drep
 conda create -n drep -y
 conda activate drep
 mamba install bioconda::drep -y
 # remember to set your checkm database
-checkm data setRoot /path/to/your/miniconda3/envs/drep/checkm_data
+checkm data setRoot $(readlink -f ~/metaWRAP/MY_CHECKM_FOLDER/)
 conda deactivate
 
 # install checkm2
