@@ -105,7 +105,6 @@ conda activate gunc
 mamba install -c bioconda gunc -y
 # Download GUNC DB
 mkdir -p /path/to/your/gunc_db/progenomes3/
-# if you fail to run 'gunc download_db', you can also [download progenomes_3](https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945) from Figshare.
 gunc download_db /path/to/your/gunc_db/progenomes3/ -db progenomes_3
 conda deactivate
 ```
@@ -293,11 +292,12 @@ We use checkm2 and gunc to check the quality of bins.
 
 - `coassembly binning` Run 's5_check_bins.pl'
 - `$final_bin_dir`: the final bin dir; for 'coassembly binning', this dir is '/path/to/metawrap_refinement/round_final/metawrap_50_10_bins'
+- `$checkm2_db.dmnd`: path to your checkm2 dmnd database
 - `$gunc_db.dmnd`: path to your gunc dmnd database
 ```sh
 # step 5 of coassembly binning
 cd coassembly_binning/s3_binning/metawrap_refinement/round_2_final
-# perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $gunc_db.dmnd
+# perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $checkm2_db.dmnd $gunc_db.dmnd
 perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/gunc_db/progenomes3/gunc_db_progenomes3.dmnd
 ```
 - `multisample binning` Run 's5_check_bins.pl'
