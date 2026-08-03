@@ -100,8 +100,9 @@ mamba create -n checkm2 -c bioconda -c conda-forge checkm2 -y
 conda create -n gunc -y
 conda activate gunc
 mamba install -c bioconda gunc -y
-#Download GUNC DB
+# Download GUNC DB
 mkdir -p /path/to/your/gunc_db/progenomes3/
+# if you fail to run 'gunc download_db', you can also [download progenomes_3](https://figshare.com/articles/online_resource/example_NGS_metaG_fq/33101945) from Figshare.
 gunc download_db /path/to/your/gunc_db/progenomes3/ -db progenomes_3
 conda deactivate
 ```
@@ -233,13 +234,13 @@ For `refinement`, there are 3 options available: metaWRAP, MAGScoT, and DASTool.
 metaWRAP can only refine 3 d of bins at a time, I split the 5 sets of bins and run metaWRAP 3 times in total:
 
 
-`r1` CONCOCT, MetaBAT2; `r2` COMEBin, SemiBin2; `r3` r1, r2, MetaBinner
+`r1`: CONCOCT, MetaBAT2; `r2`: COMEBin, SemiBin2; `r3`: r1, r2, MetaBinner
 
 
 If without COMEBin, I split the 4 sets of bins and run metaWRAP 2 times in total:
 
 
-`r1` CONCOCT, MetaBAT2; `r2` r1, SemiBin2, MetaBinner
+`r1`: CONCOCT, MetaBAT2; `r2`: r1, SemiBin2, MetaBinner
 
 
 
@@ -270,44 +271,36 @@ perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning
 
 -----
 ### Step 4. genome dereplication (only for multisample_binning)
-In multisample_binning, we will get a number of refined bins from each assembly. Some of the bins from different assemblies can be the same strain (ANI > 98%). We use drep to conduct Bin dereplication.
+In multisample_binning, we will get a number of refined bins from each assembly. Many of the bins from different assemblies can be the same strain (ANI > 98%). We use drep to conduct Bin dereplication.
 
-If performing multiple binning, run s4_multisample_binning_derep_bins.pl
+- `multisample binning` Run 's4_multisample_binning_derep_bins.pl' to dereplicate  bins from different assemblies.
 ```sh
-#must run this scripts in the same path with s1_multisample_binning_2_assembly_PE_megahit.pl
+# step 4 of multisample binning
+# MUST be run in the same path as 's1_multisample_binning_2_assembly_PE_megahit.pl'
 cd ~/MGBK_example/multisample_binning
-#perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design $min_length $cpu
-#this scripts will detect s1_assemblies_res dir and bams files (from s2_multisample_binning_align_fq_for_bam_and_depth.pl) in the sub dirs
-#assembly_design used here is the same with s1_multisample_binning_2_assembly_PE_megahit.pl
-perl ~/MGBK/s4_multisample_binning_derep_bins.pl  multisample_binning_assembly_design 80
+# perl ~/MGBK/s4_multisample_binning_derep_bins.pl multisample_binning_assembly_design $cpu
+# this script will detect s1_assemblies_res dir and metawrap_50_10_bins from step3 binning
+# assembly_design used here is the same as the one used for 's1_multisample_binning_2_assembly_PE_megahit.pl'
+perl ~/MGBK/s4_multisample_binning_derep_bins.pl multisample_binning_assembly_design 80
 ```
-
-For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
-
-Make sure Perl is available in your system.
-- `1`: tbw
-- `2`: tbw
-- `3`: tbw
-- `4`: tbw
 
 -----
 ### Step 5. check bin quality
-We use checkm2 and gunc to check the quality.
+We use checkm2 and gunc to check the quality of bins.
 
-If performing multiple binning, run s5_multisample_binning_derep_bins.pl
+- `coassembly binning` Run 's5_check_bins.pl'
 ```sh
-#must run this scripts in the same path with s1_multisample_binning_2_assembly_PE_megahit.pl
+# step 5 of coassembly binning
+cd /home/cjw_test/MGBK_example/coassembly_binning/s3_binning
+#perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design $min_length $cpu
+perl ~/MGBK/s4_multisample_binning_derep_bins.pl  multisample_binning_assembly_design 80
+```
+- `multisample binning` Run 's5_check_bins.pl'
+```sh
+# step 5 of multisample binning
 cd ~/MGBK_example/multisample_binning
 #perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design $min_length $cpu
 #this scripts will detect s1_assemblies_res dir and bams files (from s2_multisample_binning_align_fq_for_bam_and_depth.pl) in the sub dirs
 #assembly_design used here is the same with s1_multisample_binning_2_assembly_PE_megahit.pl
 perl ~/MGBK/s4_multisample_binning_derep_bins.pl  multisample_binning_assembly_design 80
 ```
-
-For long sequencing & NGS hybrid assembly, I need to evaluate after obtaining the data.
-
-Make sure Perl is available in your system.
-- `1`: tbw
-- `2`: tbw
-- `3`: tbw
-- `4`: tbw
