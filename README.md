@@ -10,7 +10,7 @@ Before binning, make sure you know the meaning of `Single-sample binning`, `Co-a
 
 Installation
 ---------------
-Before installing MGBK, please ensure `miniconda` and `mamba` are properly installed in your local system.
+1. Before installing MGBK, please ensure `miniconda` and `mamba` are properly installed in your local system.
 - `latest miniconda` [https://www.anaconda.com/docs/getting-started/miniconda/install/](https://www.anaconda.com/docs/getting-started/miniconda/install/)
 - `latest mamba` [https://anaconda.org/channels/conda-forge/packages/mamba/overview](https://anaconda.org/channels/conda-forge/packages/mamba/overview)
 
@@ -24,7 +24,7 @@ sh Miniconda3-py310_23.10.0-1-Linux-x86_64.sh
 conda install conda-forge::mamba=1.5.6 -y
 ```
 
-Create conda environments for MGBK.
+2. Create conda environments for MGBK.
 ```sh
 conda update conda -y
 conda config --add channels defaults
@@ -123,7 +123,7 @@ conda deactivate
 ```
 
 
-Download or clone the MGBK repository
+3. Download or clone the MGBK repository
 ```sh
 cd ~
 git clone https://github.com/jchenek/MGBK.git
