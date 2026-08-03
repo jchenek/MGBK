@@ -1,7 +1,7 @@
 MGBK (MetaGenomic Binning Kit)
 =======
 
-MGBK is a metagenomic binning pipeline that processes raw fastq data into refined bins, built on two benchmarks published in Nature Communications.
+MGBK is a metagenomic binning pipeline that processes raw fastq data into refined bins, built on two benchmarks published in Nature Communications:
 - `Kim, J., Kim, N., Cha, J. H., Ma, J., & Lee, I. (2026). Comprehensive benchmarking of metagenomic binning tools reveals key factors for improved genome recovery. Nature Communications, 17(1), 3467. https://doi.org/10.1038/s41467-026-71521-w`
 - `Han, H., Wang, Z., & Zhu, S. (2025). Benchmarking metagenomic binning tools on real datasets across sequencing platforms and binning modes. Nature Communications, 16(1), 2865. https://doi.org/10.1038/s41467-025-57957-6`
 
@@ -294,7 +294,7 @@ perl ~/MGBK/s4_multisample_binning_derep_bins.pl multisample_binning_assembly_de
 We use checkm2 and gunc to check the quality of bins. Check the results in `s5_checkm2_out/quality_report.tsv` and `s5_gunc_out/GUNC.progenomes_3.maxCSS_level.tsv`.
 
 
-A good bin should be: `Completeness > 90% & Contamination < 5%` based on checkm2 and `clade_separation_score (CSS) < 0.45 & reference_representation_score (RRS) > 0.5` based on gunc
+A good bin should be: `Completeness > 90% & Contamination < 5%` based on checkm2 and `clade_separation_score (CSS) < 0.45 & reference_representation_score (RRS) > 0.5` based on gunc.
 
 - `coassembly binning` Run 's5_check_bins.pl'
 - `$final_bin_dir`: the final bin dir; for 'coassembly binning', this dir is '/path/to/metawrap_refinement/round_final/metawrap_50_10_bins'
@@ -314,3 +314,7 @@ cd ~/MGBK_example/multisample_binning/s4_derep/drep_output
 # perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $checkm2_db.dmnd $gunc_db.dmnd
 perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/checkm2_db/CheckM2_database/uniref100.KO.1.dmnd ~/gunc_db/progenomes3/gunc_db_progenomes3.dmnd
 ```
+
+Citation
+---------------
+If you feel MGBK is helpful, please cite the URL: https://github.com/jchenek/MGBK in your publication(s).
