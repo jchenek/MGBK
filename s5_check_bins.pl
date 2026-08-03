@@ -18,6 +18,7 @@ print OU2 "checkm2 predict --threads $cpu --input $dir -x fa --output-directory 
 #gunc
 print OU2 "conda activate gunc \n";
 print OU2 "echo \"########running gunc########\"\n";
+print OU2 "mkdir s5_gunc_out \n";
 print OU2 "gunc run -t $cpu --input_dir $dir --db_file $db -o s5_gunc_out \n";
 
 system ("bash s5_check_bin_quality");

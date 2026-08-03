@@ -95,6 +95,9 @@ conda deactivate
 
 # install checkm2
 mamba create -n checkm2 -c bioconda -c conda-forge checkm2 -y
+conda activate checkm2
+checkm2 database --download --path /path/to/your/checkm2_db/
+conda deactivate
 
 # install gunc
 conda create -n gunc -y
@@ -289,18 +292,19 @@ perl ~/MGBK/s4_multisample_binning_derep_bins.pl multisample_binning_assembly_de
 We use checkm2 and gunc to check the quality of bins.
 
 - `coassembly binning` Run 's5_check_bins.pl'
+- `$final_bin_dir`: the final bin dir; for 'coassembly binning', this dir is '/path/to/metawrap_refinement/round_final/metawrap_50_10_bins'
+- `$gunc_db.dmnd`: path to your gunc dmnd database
 ```sh
 # step 5 of coassembly binning
-cd /home/cjw_test/MGBK_example/coassembly_binning/s3_binning
-#perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design $min_length $cpu
-perl ~/MGBK/s4_multisample_binning_derep_bins.pl  multisample_binning_assembly_design 80
+cd coassembly_binning/s3_binning/metawrap_refinement/round_2_final
+# perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $gunc_db.dmnd
+perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/gunc_db/progenomes3/gunc_db_progenomes3.dmnd
 ```
 - `multisample binning` Run 's5_check_bins.pl'
+- `$final_bin_dir`: the final bin dir; for 'multisample binning', this dir is '/path/to/s4_derep/drep_output/dereplicated_genomes'
 ```sh
 # step 5 of multisample binning
-cd ~/MGBK_example/multisample_binning
-#perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design $min_length $cpu
-#this scripts will detect s1_assemblies_res dir and bams files (from s2_multisample_binning_align_fq_for_bam_and_depth.pl) in the sub dirs
-#assembly_design used here is the same with s1_multisample_binning_2_assembly_PE_megahit.pl
-perl ~/MGBK/s4_multisample_binning_derep_bins.pl  multisample_binning_assembly_design 80
+cd ~/MGBK_example/multisample_binning/s4_derep/drep_output
+# perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $gunc_db.dmnd
+perl ~/MGBK/s5_check_bins.pl dereplicated_genomes 80 ~/gunc_db/progenomes3/gunc_db_progenomes3.dmnd
 ```
