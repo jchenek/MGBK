@@ -150,7 +150,7 @@ Step 1. trim and assembly
 ---------------
 We use trimmomatic and megahit to trim and assemble short-read metagenomic data, respectively. (Scripts for long sequencing & NGS hybrid assembly are coming soon)
 
-- `coassembly binning` Run 's1_coassembly_binning_trim_and_coassembly_PE_megahit.pl' to trim and assemble.
+- `coassembly binning` Run 's1_coassembly_binning_NGS_trim_and_coassembly.pl' to trim and assemble.
 - `$cpu`: number of threads
 - `$fq_list`: the fq_list of raw data
 ```sh
@@ -158,8 +158,8 @@ We use trimmomatic and megahit to trim and assemble short-read metagenomic data,
 cd ~/MGBK_example
 mkdir coassembly_binning
 cd coassembly_binning
-# usage: perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl $cpu $fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
-perl ~/MGBK/s1_coassembly_binning_trim_and_coassembly_PE_megahit.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+# usage: perl ~/MGBK/s1_coassembly_binning_NGS_trim_and_coassembly.pl $cpu $fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+perl ~/MGBK/s1_coassembly_binning_NGS_trim_and_coassembly.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
 ```
 
 
