@@ -117,7 +117,9 @@ mamba install -c bioconda gunc -y
 mkdir -p /path/to/your/gunc_db/progenomes3/
 gunc download_db /path/to/your/gunc_db/progenomes3/ -db progenomes_3
 conda deactivate
-```
+
+# If you fail to download the databases above, you can try downloading them from my [Quark Cloud]().
+# data updated on Aug. 3rd, 2026
 
 Download or clone the MGBK repository
 ```sh
@@ -303,7 +305,7 @@ A good bin should be: `Completeness > 90% & Contamination < 5%` based on checkm2
 - `$gunc_db.dmnd`: path to your gunc dmnd database
 ```sh
 # step 5 of coassembly binning
-cd coassembly_binning/s3_binning/metawrap_refinement/round_2_final
+cd coassembly_binning/s3_binning/metawrap_refinement/round_final
 # usage: perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $checkm2_db.dmnd $gunc_db.dmnd
 perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/checkm2_db/CheckM2_database/uniref100.KO.1.dmnd ~/gunc_db/progenomes3/gunc_db_progenomes3.dmnd
 ```
