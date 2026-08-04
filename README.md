@@ -163,7 +163,10 @@ cd ~/MGBK_example
 mkdir coassembly_binning
 cd coassembly_binning
 # usage: perl ~/MGBK/s1_coassembly_binning_NGS_trim_and_coassembly.pl $cpu $fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
-perl ~/MGBK/s1_coassembly_binning_NGS_trim_and_coassembly.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+perl ~/MGBK/s1_coassembly_binning_NGS_trim_and_coassembly.pl \
+80 \
+~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list \
+~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
 ```
 
 
@@ -174,10 +177,15 @@ cd ~/MGBK_example
 mkdir multisample_binning
 cd multisample_binning
 # usage: perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl $cpu $fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
-perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl 80 ~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list ~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
+perl ~/MGBK/s1_multisample_binning_1_NGS_trim.pl \
+80 \
+~/MGBK_example/example_NGS_metaG_fq_from_cold_seep/fq_list \
+~/MGBK/trimmomatic_adaptor/TruSeq3-PE-2-GGGGG.fa
 # usage: perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl $cpu multisample_binning_assembly_design
 cp ~/MGBK/multisample_binning_assembly_design ./
-perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl 80 multisample_binning_assembly_design
+perl ~/MGBK/s1_multisample_binning_2_NGS_assembly.pl \
+80 \
+multisample_binning_assembly_design
 ```
 
 `multisample_binning_assembly_design` tells the scripts how many assemblies to be generated using which fastq file(s). For each assembly, it can be constructed from a single sample or multiple samples (concatenated). This tsv file looks like this:
@@ -205,7 +213,11 @@ cd ~/MGBK_example/coassembly_binning
 mkdir s2_alignment
 cd s2_alignment
 # usage: perl ~/MGBK/s2_coassembly_binning_align_fq_for_bam_and_depth.pl $assembly $min_length $cpu $fq_list_trim
-perl ~/MGBK/s2_coassembly_binning_align_fq_for_bam_and_depth.pl ~/MGBK_example/coassembly_binning/s1_coassembly/final.contigs.fa 1500 80 ~/MGBK_example/coassembly_binning/fq_list_trim
+perl ~/MGBK/s2_coassembly_binning_align_fq_for_bam_and_depth.pl \
+~/MGBK_example/coassembly_binning/s1_coassembly/final.contigs.fa \
+1500 \
+80 \
+~/MGBK_example/coassembly_binning/fq_list_trim
 ```
 
 
@@ -217,7 +229,11 @@ cd ~/MGBK_example/multisample_binning
 # usage: perl ~/MGBK/s2_multisample_binning_align_fq_for_bam_and_depth.pl multisample_binning_assembly_design $min_length $cpu $fq_list_trim
 # this script will detect s1_assemblies_res dir and map clean read to all assemblies
 # assembly_design used here is the same as the one used for 's1_multisample_binning_2_assembly_PE_megahit.pl'
-perl ~/MGBK/s2_multisample_binning_align_fq_for_bam_and_depth.pl multisample_binning_assembly_design 1500 80 fq_list_trim
+perl ~/MGBK/s2_multisample_binning_align_fq_for_bam_and_depth.pl \
+multisample_binning_assembly_design \
+1500 \
+80 \
+fq_list_trim
 ```
 
 -----
@@ -262,7 +278,11 @@ cd ~/MGBK_example/coassembly_binning
 mkdir s3_binning
 cd s3_binning
 # usage: perl ~/MGBK/s3_coassembly_binning_run_binners_full.pl $binning_PE_assembly_$min_length.fa $min_length $cpu $s2_alignment_dir
-perl ~/MGBK/s3_coassembly_binning_run_binners_full.pl ~/MGBK_example/coassembly_binning/s2_alignment/binning_PE_assembly_1500.fa 1500 80 ~/MGBK_example/coassembly_binning/s2_alignment/
+perl ~/MGBK/s3_coassembly_binning_run_binners_full.pl \
+~/MGBK_example/coassembly_binning/s2_alignment/binning_PE_assembly_1500.fa \
+1500 \
+80 \
+~/MGBK_example/coassembly_binning/s2_alignment/
 ```
 
 
@@ -274,7 +294,10 @@ cd ~/MGBK_example/multisample_binning
 # usage: perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design $min_length $cpu
 # this script will detect s1_assemblies_res dir and bams files (from s2_multisample_binning_align_fq_for_bam_and_depth.pl) in the sub dirs
 # assembly_design used here is the same as the one used for 's1_multisample_binning_2_assembly_PE_megahit.pl'
-perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl multisample_binning_assembly_design 1500 80
+perl ~/MGBK/s3_multisample_binning_run_binners_no_comebin.pl \
+multisample_binning_assembly_design \
+1500 \
+80
 ```
 
 -----
@@ -289,7 +312,9 @@ cd ~/MGBK_example/multisample_binning
 # usage: perl ~/MGBK/s4_multisample_binning_derep_bins.pl multisample_binning_assembly_design $cpu
 # this script will detect s1_assemblies_res dir and metawrap_50_10_bins from step3 binning
 # assembly_design used here is the same as the one used for 's1_multisample_binning_2_assembly_PE_megahit.pl'
-perl ~/MGBK/s4_multisample_binning_derep_bins.pl multisample_binning_assembly_design 80
+perl ~/MGBK/s4_multisample_binning_derep_bins.pl \
+multisample_binning_assembly_design \
+80
 ```
 
 -----
@@ -307,7 +332,11 @@ A good bin should be: `Completeness > 90% & Contamination < 5%` based on checkm2
 # step 5 of coassembly binning
 cd ~/MGBK_example/coassembly_binning/s3_binning/metawrap_refinement/round_final
 # usage: perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $checkm2_db.dmnd $gunc_db.dmnd
-perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/MGBK_db/checkm2_db/CheckM2_database/checkm2_db.dmnd ~/MGBK_db/gunc_db/gunc_db_progenomes3.dmnd
+perl ~/MGBK/s5_check_bins.pl \
+metawrap_50_10_bins \
+80 \
+~/MGBK_db/checkm2_db/CheckM2_database/checkm2_db.dmnd \
+~/MGBK_db/gunc_db/gunc_db_progenomes3.dmnd
 ```
 - `multisample binning` Run 's5_check_bins.pl'
 - `$final_bin_dir`: the final bin dir; for 'multisample binning', this dir is '/path/to/s4_derep/drep_output/dereplicated_genomes'
@@ -315,7 +344,11 @@ perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/MGBK_db/checkm2_db/CheckM2
 # step 5 of multisample binning
 cd ~/MGBK_example/multisample_binning/s4_derep/drep_output
 # usage: perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $checkm2_db.dmnd $gunc_db.dmnd
-perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/MGBK_db/checkm2_db/CheckM2_database/checkm2_db.dmnd ~/MGBK_db/gunc_db/gunc_db_progenomes3.dmnd
+perl ~/MGBK/s5_check_bins.pl \
+metawrap_50_10_bins \
+80 \
+~/MGBK_db/checkm2_db/CheckM2_database/checkm2_db.dmnd \
+~/MGBK_db/gunc_db/gunc_db_progenomes3.dmnd
 ```
 
 Citation
