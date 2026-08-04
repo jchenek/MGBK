@@ -89,7 +89,8 @@ mamba env create -f metabinner_env.yaml -y
 mamba create -n comebin -c conda-forge -c bioconda comebin -y
 conda activate comebin
 # remember to set your checkm database
-# if mamba fail to download checkm database, you can run 'checkm database setRoot' using the one downloaded for metawrap
+# if mamba fail to download checkm database,
+# you can run 'checkm database setRoot' using the one downloaded for metawrap
 checkm data setRoot $(readlink -f ~/metaWRAP/MY_CHECKM_FOLDER/)
 conda deactivate
 
@@ -98,7 +99,8 @@ conda create -n drep -y
 conda activate drep
 mamba install bioconda::drep -y
 # remember to set your checkm database
-# if mamba fail to download checkm database, you can run 'checkm database setRoot' using the one downloaded for metawrap
+# if mamba fail to download checkm database,
+# you can run 'checkm database setRoot' using the one downloaded for metawrap
 checkm data setRoot $(readlink -f ~/metaWRAP/MY_CHECKM_FOLDER/)
 conda deactivate
 
