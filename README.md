@@ -118,7 +118,7 @@ mkdir -p /path/to/your/gunc_db/progenomes3/
 gunc download_db /path/to/your/gunc_db/progenomes3/ -db progenomes_3
 conda deactivate
 ```
-If you fail to download the databases above, you can try downloading them from my [Quark Cloud]() (updated on Aug. 3rd, 2026).
+If you fail to download the databases above, you can try downloading them from my [Quark Cloud](https://pan.quark.cn/s/4b3494398001) (updated on Aug. 3rd, 2026).
 
 
 3. Download or clone the MGBK repository
@@ -307,7 +307,7 @@ A good bin should be: `Completeness > 90% & Contamination < 5%` based on checkm2
 # step 5 of coassembly binning
 cd ~/MGBK_example/coassembly_binning/s3_binning/metawrap_refinement/round_final
 # usage: perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $checkm2_db.dmnd $gunc_db.dmnd
-perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/checkm2_db/CheckM2_database/uniref100.KO.1.dmnd ~/gunc_db/progenomes3/gunc_db_progenomes3.dmnd
+perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/MGBK_db/checkm2_db/CheckM2_database/checkm2_db.dmnd ~/MGBK_db/gunc_db/gunc_db_progenomes3.dmnd
 ```
 - `multisample binning` Run 's5_check_bins.pl'
 - `$final_bin_dir`: the final bin dir; for 'multisample binning', this dir is '/path/to/s4_derep/drep_output/dereplicated_genomes'
@@ -315,7 +315,7 @@ perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/checkm2_db/CheckM2_databas
 # step 5 of multisample binning
 cd ~/MGBK_example/multisample_binning/s4_derep/drep_output
 # usage: perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $checkm2_db.dmnd $gunc_db.dmnd
-perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/checkm2_db/CheckM2_database/uniref100.KO.1.dmnd ~/gunc_db/progenomes3/gunc_db_progenomes3.dmnd
+perl ~/MGBK/s5_check_bins.pl metawrap_50_10_bins 80 ~/MGBK_db/checkm2_db/CheckM2_database/checkm2_db.dmnd ~/MGBK_db/gunc_db/gunc_db_progenomes3.dmnd
 ```
 
 Citation
