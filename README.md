@@ -326,7 +326,7 @@ We use checkm2 and gunc to check the quality of bins. Check the results in `s5_c
 A good bin should be: `Completeness > 90% & Contamination < 5%` based on checkm2 and `clade_separation_score (CSS) < 0.45 & reference_representation_score (RRS) > 0.5` based on gunc.
 
 - `coassembly binning` Run 's5_check_bins.pl'
-- `$final_bin_dir`: the final bin dir; for 'coassembly binning', this dir is '/path/to/metawrap_refinement/round_final/metawrap_50_10_bins'
+- `$final_bin_dir`: the final bin dir; for 'coassembly binning', this dir is '/path/to/s3_binning/metawrap_refinement/round_final/metawrap_50_10_bins'
 - `$checkm2_db.dmnd`: path to your checkm2 dmnd database
 - `$gunc_db.dmnd`: path to your gunc dmnd database
 ```sh
