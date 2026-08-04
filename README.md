@@ -253,7 +253,7 @@ In MGBK, 5 `binning softwares` are included, classified into 4 categories based 
 Since COMEBin takes an extremely long time to run, a "no-COMEBin" version is provided as an alternative.
 
 
-For `refinement`, there are 3 popular options: metaWRAP, MAGScoT, and DASTool. Although metaWRAP takes the longest time and consumes the most resources, it yields genomes with lower contamination and fewer chimeric genomes (Kim et at., 2026). Therefore, I use metaWRAP for refinement in MGBK.
+For `refinement`, there are 3 popular options: metaWRAP, MAGScoT, and DASTool. Although metaWRAP takes the longest time and consumes the most resources, it yields genomes with lower contamination and fewer chimeric genomes (Kim et at., 2026). Therefore, I use metaWRAP for refinement in MGBK. Since an empty bin dir can cause errors when running metaWRAP, I create a fake bin `faker.fa`, and add it to all bin dirs. This bin does not include any biological information, will be removed after the CheckM module, and will not impact the final results.
 
 
 Since metaWRAP can only refine 3 bin dirs at a time, I split the 5 bin dirs and run metaWRAP 3 times in total:
