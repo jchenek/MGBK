@@ -118,7 +118,6 @@ mkdir -p /path/to/your/gunc_db/progenomes3/
 gunc download_db /path/to/your/gunc_db/progenomes3/ -db progenomes_3
 conda deactivate
 ```
-If you fail to download the databases above, you can try downloading them from my [Quark Cloud](https://pan.quark.cn/s/4b3494398001) (updated on Aug. 3rd, 2026).
 
 
 3. Download or clone the MGBK repository
