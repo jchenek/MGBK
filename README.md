@@ -303,7 +303,7 @@ multisample_binning_assembly_design \
 
 -----
 ### Step 4. genome dereplication (only for multisample_binning)
-In multisample_binning, we will get a number of refined bins from each assembly. Many of the bins from different assemblies can be the same strain (ANI > 98%). We use drep to conduct Bin dereplication.
+In multisample binning, we will get a number of refined bins from each assembly. Many of the bins from different assemblies can be the same strain (ANI > 98%). We use drep to conduct Bin dereplication.
 
 - `multisample binning` Run 's4_multisample_binning_derep_bins.pl' to dereplicate  bins from different assemblies.
 ```sh
