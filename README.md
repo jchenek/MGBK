@@ -336,8 +336,8 @@ cd ~/MGBK_example/coassembly_binning/s3_binning/metawrap_refinement/round_final
 perl ~/MGBK/s5_check_bins.pl \
 metawrap_50_10_bins \
 80 \
-~/MGBK_db/checkm2_db/CheckM2_database/checkm2_db.dmnd \
-~/MGBK_db/gunc_db/gunc_db_progenomes3.dmnd
+~/MGBK_db/checkm2_db.dmnd \
+~/MGBK_db/gunc_db_progenomes3.dmnd
 ```
 - `multisample binning` Run 's5_check_bins.pl'
 - `$final_bin_dir`: the final bin dir; for 'multisample binning', this dir is '/path/to/s4_derep/drep_output/dereplicated_genomes'
@@ -348,8 +348,8 @@ cd ~/MGBK_example/multisample_binning/s4_derep/drep_output
 perl ~/MGBK/s5_check_bins.pl \
 metawrap_50_10_bins \
 80 \
-~/MGBK_db/checkm2_db/CheckM2_database/checkm2_db.dmnd \
-~/MGBK_db/gunc_db/gunc_db_progenomes3.dmnd
+~/MGBK_db/checkm2_db.dmnd \
+~/MGBK_db/gunc_db_progenomes3.dmnd
 ```
 
 Citation
