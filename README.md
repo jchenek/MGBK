@@ -346,7 +346,7 @@ metawrap_50_10_bins \
 cd ~/MGBK_example/multisample_binning/s4_derep/drep_output
 # usage: perl ~/MGBK/s5_check_bins.pl $final_bin_dir $cpu $checkm2_db.dmnd $gunc_db.dmnd
 perl ~/MGBK/s5_check_bins.pl \
-metawrap_50_10_bins \
+dereplicated_genomes \
 80 \
 ~/MGBK_db/checkm2_db.dmnd \
 ~/MGBK_db/gunc_db_progenomes3.dmnd
